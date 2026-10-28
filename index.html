@@ -1,0 +1,695 @@
+
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="FreeKit - مكتبة مجانية للقوالب والملفات الرقمية للمصممين وأصحاب الأعمال ومطوري المواقع.">
+  <meta name="theme-color" content="#101426">
+  <title>FreeKit | مكتبتك الرقمية المجانية</title>
+
+  <style>
+    :root {
+      --bg: #f7f8fc;
+      --card: #ffffff;
+      --text: #171b2e;
+      --muted: #70758b;
+      --primary: #6958ef;
+      --border: #e8eaf3;
+      --dark: #101426;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: "Segoe UI", Tahoma, Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.7;
+    }
+
+    button, input { font: inherit; }
+    button { cursor: pointer; }
+
+    a { color: inherit; text-decoration: none; }
+
+    .container {
+      width: min(1120px, 92%);
+      margin: auto;
+    }
+
+    header {
+      background: var(--dark);
+      color: white;
+      padding: 17px 0;
+    }
+
+    .navbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+    }
+
+    .logo {
+      font-size: 27px;
+      font-weight: 800;
+      letter-spacing: -1px;
+    }
+
+    .logo span { color: #a99eff; }
+
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .language-btn, .menu-link {
+      color: white;
+      background: transparent;
+      border: 1px solid #41465e;
+      border-radius: 10px;
+      padding: 8px 13px;
+    }
+
+    .hero {
+      background:
+        radial-gradient(ellipse at 80% 10%, #41347a 0, transparent 45%),
+        linear-gradient(125deg, #101426, #20254a);
+      color: white;
+      padding: 82px 0 75px;
+      text-align: center;
+    }
+
+    .eyebrow {
+      display: inline-block;
+      background: #ffffff16;
+      border: 1px solid #ffffff25;
+      padding: 6px 15px;
+      border-radius: 50px;
+      color: #d7d0ff;
+      font-size: 14px;
+    }
+
+    .hero h1 {
+      font-size: clamp(34px, 5vw, 58px);
+      line-height: 1.25;
+      margin: 22px auto 15px;
+      max-width: 800px;
+    }
+
+    .hero h1 span { color: #aaa0ff; }
+
+    .hero p {
+      color: #d0d3e6;
+      font-size: 17px;
+      max-width: 650px;
+      margin: 0 auto 28px;
+    }
+
+    .search-box {
+      max-width: 610px;
+      margin: auto;
+      display: flex;
+      gap: 10px;
+      padding: 7px;
+      border-radius: 15px;
+      background: white;
+    }
+
+    .search-box input {
+      flex: 1;
+      min-width: 0;
+      border: 0;
+      outline: none;
+      padding: 12px;
+      color: #171b2e;
+      background: transparent;
+    }
+
+    .primary-btn {
+      background: var(--primary);
+      color: white;
+      border: 0;
+      border-radius: 10px;
+      padding: 12px 20px;
+      font-weight: 700;
+    }
+
+    .primary-btn:hover { background: #5746df; }
+
+    .hero-note {
+      color: #c6c9dc;
+      font-size: 13px;
+      margin-top: 15px;
+    }
+
+    .section { padding: 55px 0; }
+
+    .section-heading {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 15px;
+      margin-bottom: 25px;
+    }
+
+    .section-heading h2 {
+      font-size: 29px;
+      margin: 0 0 5px;
+    }
+
+    .section-heading p {
+      color: var(--muted);
+      margin: 0;
+    }
+
+    .categories {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 15px;
+    }
+
+    .category {
+      text-align: start;
+      background: var(--card);
+      border: 1px solid var(--border);
+      padding: 22px 18px;
+      border-radius: 16px;
+      transition: .2s;
+      color: var(--text);
+    }
+
+    .category:hover, .category.active {
+      border-color: var(--primary);
+      transform: translateY(-3px);
+      box-shadow: 0 8px 24px #6958ef12;
+    }
+
+    .category.active { background: #f0edff; }
+
+    .category-icon {
+      width: 46px;
+      height: 46px;
+      display: grid;
+      place-items: center;
+      border-radius: 13px;
+      background: #f0edff;
+      font-size: 23px;
+      margin-bottom: 12px;
+    }
+
+    .category strong { display: block; font-size: 16px; }
+    .category small { color: var(--muted); }
+
+    .products {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+
+    .product {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      overflow: hidden;
+      transition: .2s;
+    }
+
+    .product:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 35px #1a20400c;
+    }
+
+    .product-cover {
+      min-height: 150px;
+      display: grid;
+      place-items: center;
+      font-size: 55px;
+    }
+
+    .cover-purple { background: linear-gradient(135deg, #e7e2ff, #c9c0ff); }
+    .cover-green { background: linear-gradient(135deg, #d8f5e7, #b5e7d0); }
+    .cover-orange { background: linear-gradient(135deg, #ffead7, #ffd1ac); }
+    .cover-blue { background: linear-gradient(135deg, #dcecff, #b9d5ff); }
+    .cover-pink { background: linear-gradient(135deg, #ffe1ed, #ffc0d7); }
+    .cover-yellow { background: linear-gradient(135deg, #fff4c9, #ffe49b); }
+
+    .product-body { padding: 20px; }
+
+    .tag {
+      display: inline-block;
+      background: #efedff;
+      color: #5746c9;
+      padding: 4px 10px;
+      border-radius: 7px;
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .product h3 { margin: 12px 0 7px; font-size: 19px; }
+
+    .product p {
+      color: var(--muted);
+      font-size: 14px;
+      min-height: 48px;
+      margin: 0 0 17px;
+    }
+
+    .product-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .free-label { color: #16865a; font-weight: 800; font-size: 14px; }
+
+    .download-btn {
+      border: 0;
+      background: var(--dark);
+      color: white;
+      border-radius: 9px;
+      padding: 10px 13px;
+    }
+
+    .download-btn:hover { background: var(--primary); }
+
+    .empty {
+      grid-column: 1 / -1;
+      text-align: center;
+      padding: 40px 15px;
+      color: var(--muted);
+    }
+
+    .benefits {
+      background: #eeedff;
+      border-radius: 22px;
+      padding: 32px;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 25px;
+    }
+
+    .benefit h3 { margin: 8px 0 4px; }
+    .benefit p { color: var(--muted); margin: 0; font-size: 14px; }
+    .benefit-icon { font-size: 27px; }
+
+    footer {
+      background: var(--dark);
+      color: white;
+      margin-top: 30px;
+      padding: 35px 0;
+    }
+
+    .footer-inner {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 15px;
+    }
+
+    footer p { color: #bfc3d8; margin: 5px 0 0; font-size: 14px; }
+
+    .no-results { display: none; }
+
+    html[dir="ltr"] .product-body,
+    html[dir="ltr"] .category { text-align: left; }
+
+    @media (max-width: 800px) {
+      .categories { grid-template-columns: repeat(2, 1fr); }
+      .products { grid-template-columns: repeat(2, 1fr); }
+      .benefits { grid-template-columns: 1fr; }
+      .hero { padding: 60px 0; }
+    }
+
+    @media (max-width: 520px) {
+      .products { grid-template-columns: 1fr; }
+      .navbar { gap: 10px; }
+      .logo { font-size: 23px; }
+      .hero h1 { font-size: 34px; }
+      .search-box { flex-direction: column; }
+      .search-box .primary-btn { width: 100%; }
+      .section-heading h2 { font-size: 24px; }
+      .benefits { padding: 23px; }
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <div class="container navbar">
+      <a class="logo" href="#">Free<span>Kit</span></a>
+
+      <div class="nav-actions">
+        <a class="menu-link" href="#products" data-i18n="browse">تصفح الملفات</a>
+        <button class="language-btn" id="languageBtn" type="button">English</button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="container">
+        <span class="eyebrow" data-i18n="eyebrow">مكتبتك الرقمية المجانية</span>
+
+        <h1 data-i18n="heroTitle">
+          أدوات وملفات تساعدك على <span>إنجاز المزيد</span>
+        </h1>
+
+        <p data-i18n="heroDescription">
+          اكتشف قوالب التصميم وملفات الأعمال وموارد المواقع، وحمّل ما تحتاجه مجانًا.
+        </p>
+
+        <form class="search-box" id="searchForm">
+          <input id="searchInput" type="search"
+            placeholder="ابحث عن قالب أو ملف..."
+            aria-label="Search resources">
+          <button class="primary-btn" type="submit" data-i18n="search">ابحث الآن</button>
+        </form>
+
+        <div class="hero-note" data-i18n="heroNote">
+          ملفات مجانية للاستخدام • تصفح سهل • موارد متنوعة
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="section-heading">
+          <div>
+            <h2 data-i18n="categoriesTitle">استكشف التصنيفات</h2>
+            <p data-i18n="categoriesDescription">اختر المجال الذي تحتاج موارده.</p>
+          </div>
+        </div>
+
+        <div class="categories">
+          <button class="category" data-category="design">
+            <div class="category-icon">🎨</div>
+            <strong data-i18n="design">التصميم</strong>
+            <small data-i18n="designSub">قوالب وموارد إبداعية</small>
+          </button>
+
+          <button class="category" data-category="business">
+            <div class="category-icon">📊</div>
+            <strong data-i18n="business">الأعمال</strong>
+            <small data-i18n="businessSub">نماذج وملفات شركات</small>
+          </button>
+
+          <button class="category" data-category="web">
+            <div class="category-icon">💻</div>
+            <strong data-i18n="web">المواقع والتقنية</strong>
+            <small data-i18n="webSub">موارد وقوالب ويب</small>
+          </button>
+
+          <button class="category" data-category="content">
+            <div class="category-icon">📱</div>
+            <strong data-i18n="content">صناعة المحتوى</strong>
+            <small data-i18n="contentSub">التخطيط والنشر</small>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="products" style="padding-top: 0">
+      <div class="container">
+        <div class="section-heading">
+          <div>
+            <h2 data-i18n="productsTitle">موارد مجانية لك</h2>
+            <p data-i18n="productsDescription">ابدأ بتحميل ملفات عملية يمكنك استخدامها مباشرة.</p>
+          </div>
+        </div>
+
+        <div class="products" id="productGrid"></div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="benefits">
+          <div class="benefit">
+            <div class="benefit-icon">🎁</div>
+            <h3 data-i18n="benefit1Title">مجانية</h3>
+            <p data-i18n="benefit1Text">حمّل الموارد المتاحة دون دفع ثمن الملف.</p>
+          </div>
+
+          <div class="benefit">
+            <div class="benefit-icon">⚡</div>
+            <h3 data-i18n="benefit2Title">سهلة الاستخدام</h3>
+            <p data-i18n="benefit2Text">ملفات منظمة تساعدك على بدء العمل بسرعة.</p>
+          </div>
+
+          <div class="benefit">
+            <div class="benefit-icon">🌍</div>
+            <h3 data-i18n="benefit3Title">لغتان</h3>
+            <p data-i18n="benefit3Text">تصفح المكتبة بالعربية أو الإنجليزية.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container footer-inner">
+      <div>
+        <a class="logo" href="#">Free<span>Kit</span></a>
+        <p data-i18n="footerText">موارد رقمية مجانية تساعدك على العمل والإبداع.</p>
+      </div>
+      <p>© <span id="year"></span> FreeKit</p>
+    </div>
+  </footer>
+
+  <script>
+    const translations = {
+      ar: {
+        browse: "تصفح الملفات",
+        eyebrow: "مكتبتك الرقمية المجانية",
+        heroTitle: 'أدوات وملفات تساعدك على <span>إنجاز المزيد</span>',
+        heroDescription: "اكتشف قوالب التصميم وملفات الأعمال وموارد المواقع، وحمّل ما تحتاجه مجانًا.",
+        search: "ابحث الآن",
+        searchPlaceholder: "ابحث عن قالب أو ملف...",
+        heroNote: "ملفات مجانية للاستخدام • تصفح سهل • موارد متنوعة",
+        categoriesTitle: "استكشف التصنيفات",
+        categoriesDescription: "اختر المجال الذي تحتاج موارده.",
+        design: "التصميم",
+        designSub: "قوالب وموارد إبداعية",
+        business: "الأعمال",
+        businessSub: "نماذج وملفات شركات",
+        web: "المواقع والتقنية",
+        webSub: "موارد وقوالب ويب",
+        content: "صناعة المحتوى",
+        contentSub: "التخطيط والنشر",
+        productsTitle: "موارد مجانية لك",
+        productsDescription: "ابدأ بتحميل ملفات عملية يمكنك استخدامها مباشرة.",
+        free: "مجاني",
+        download: "تحميل الملف",
+        noResults: "لم نعثر على ملفات مطابقة. جرّب كلمة بحث أخرى.",
+        benefit1Title: "مجانية",
+        benefit1Text: "حمّل الموارد المتاحة دون دفع ثمن الملف.",
+        benefit2Title: "سهلة الاستخدام",
+        benefit2Text: "ملفات منظمة تساعدك على بدء العمل بسرعة.",
+        benefit3Title: "لغتان",
+        benefit3Text: "تصفح المكتبة بالعربية أو الإنجليزية.",
+        footerText: "موارد رقمية مجانية تساعدك على العمل والإبداع.",
+        products: [
+          ["قالب تخطيط منشورات السوشيال ميديا", "نموذج نصي لتنظيم أفكار المنشورات ومواعيد النشر.", "صناعة المحتوى", "content", "🗓️", "purple", "social-plan.txt", "خطة محتوى السوشيال ميديا\n\nالأسبوع:\nالهدف:\nالجمهور المستهدف:\n\nالمنشور الأول\nالفكرة:\nالمنصة:\nتاريخ النشر:\nالنص:\nرابط التصميم:\nالحالة: قيد الإعداد\n\nالمنشور الثاني\nالفكرة:\nالمنصة:\nتاريخ النشر:\nالنص:\nرابط التصميم:\nالحالة: قيد الإعداد"],
+          ["نموذج عرض سعر للشركات", "ملف CSV بسيط يمكنك فتحه في Excel أو برامج الجداول.", "الأعمال", "business", "📊", "green", "quotation-template.csv", "Item,Description,Quantity,Unit Price,Total\n1,Service description,1,0,0\n2,Additional materials,1,0,0\n,,,,\nSubtotal,,,,0\nTax,,,,0\nGrand Total,,,,0"],
+          ["قائمة إطلاق موقع إلكتروني", "قائمة تحقق تساعدك على مراجعة موقعك قبل نشره.", "المواقع والتقنية", "web", "💻", "blue", "website-launch-checklist.txt", "Website Launch Checklist\n\nCONTENT\n[ ] Review all page text\n[ ] Check spelling\n[ ] Add page titles and descriptions\n\nDESIGN\n[ ] Test on mobile\n[ ] Check images\n[ ] Check navigation links\n\nFUNCTIONALITY\n[ ] Test forms\n[ ] Test downloads\n[ ] Test all buttons\n\nLAUNCH\n[ ] Connect analytics\n[ ] Create a backup\n[ ] Check loading speed"],
+          ["قائمة مراجعة التصميم", "قائمة عملية لمراجعة تصميمك قبل تسليمه للعميل.", "التصميم", "design", "🎨", "orange", "design-review-checklist.txt", "Design Review Checklist\n\n[ ] Confirm project dimensions\n[ ] Check typography and readability\n[ ] Review colors and contrast\n[ ] Check spacing and alignment\n[ ] Verify image quality\n[ ] Review mobile layouts\n[ ] Organize and name files\n[ ] Export final files\n[ ] Confirm usage rights"],
+          ["نموذج متابعة مشروع", "نموذج CSV لتنظيم المهام والمسؤوليات ومواعيد التسليم.", "الأعمال", "business", "📋", "pink", "project-tracker.csv", "Task,Owner,Start Date,Due Date,Status,Notes\nDefine project goals,,,,Not started,\nPrepare resources,,,,Not started,\nComplete first draft,,,,Not started,\nReview work,,,,Not started,\nDeliver final version,,,,Not started"],
+          ["قالب تخطيط صفحة هبوط", "هيكل نصي يساعدك على تخطيط صفحة هبوط لمشروعك.", "التصميم", "design", "🧩", "yellow", "landing-page-outline.txt", "Landing Page Outline\n\n1. HEADLINE\nDescribe the main benefit.\n\n2. SUBHEADLINE\nExplain who the offer helps.\n\n3. PRIMARY CALL TO ACTION\nChoose one clear action.\n\n4. BENEFITS\nBenefit 1:\nBenefit 2:\nBenefit 3:\n\n5. HOW IT WORKS\nStep 1:\nStep 2:\nStep 3:\n\n6. FREQUENTLY ASKED QUESTIONS\nQuestion 1:\nQuestion 2:\n\n7. FINAL CALL TO ACTION"]
+        ]
+      },
+
+      en: {
+        browse: "Browse resources",
+        eyebrow: "Your free digital library",
+        heroTitle: 'Tools and files to help you <span>do more</span>',
+        heroDescription: "Discover design templates, business files, and website resources. Download what you need for free.",
+        search: "Search",
+        searchPlaceholder: "Search for a template or file...",
+        heroNote: "Free resources • Easy browsing • Multiple categories",
+        categoriesTitle: "Explore categories",
+        categoriesDescription: "Choose the resources you need.",
+        design: "Design",
+        designSub: "Creative templates and assets",
+        business: "Business",
+        businessSub: "Business forms and files",
+        web: "Web & Technology",
+        webSub: "Website resources and templates",
+        content: "Content Creation",
+        contentSub: "Planning and publishing",
+        productsTitle: "Free resources for you",
+        productsDescription: "Download practical files you can start using today.",
+        free: "Free",
+        download: "Download",
+        noResults: "No matching files found. Try another search.",
+        benefit1Title: "Free to download",
+        benefit1Text: "Download available resources without paying for the file.",
+        benefit2Title: "Easy to use",
+        benefit2Text: "Organized files help you get started faster.",
+        benefit3Title: "Two languages",
+        benefit3Text: "Browse the library in Arabic or English.",
+        footerText: "Free digital resources to help you work and create.",
+        products: [
+          ["Social Media Content Planner", "A simple template for organizing post ideas and publishing dates.", "Content Creation", "content", "🗓️", "purple", "social-plan.txt", "Social Media Content Plan\n\nWeek:\nGoal:\nTarget audience:\n\nPost 1\nIdea:\nPlatform:\nPublish date:\nCaption:\nDesign link:\nStatus: In progress\n\nPost 2\nIdea:\nPlatform:\nPublish date:\nCaption:\nDesign link:\nStatus: In progress"],
+          ["Business Quotation Template", "A simple CSV file you can open in Excel or spreadsheet software.", "Business", "business", "📊", "green", "quotation-template.csv", "Item,Description,Quantity,Unit Price,Total\n1,Service description,1,0,0\n2,Additional materials,1,0,0\n,,,,\nSubtotal,,,,0\nTax,,,,0\nGrand Total,,,,0"],
+          ["Website Launch Checklist", "A practical checklist to review your website before launch.", "Web & Technology", "web", "💻", "blue", "website-launch-checklist.txt", "Website Launch Checklist\n\nCONTENT\n[ ] Review all page text\n[ ] Check spelling\n[ ] Add page titles and descriptions\n\nDESIGN\n[ ] Test on mobile\n[ ] Check images\n[ ] Check navigation links\n\nFUNCTIONALITY\n[ ] Test forms\n[ ] Test downloads\n[ ] Test all buttons\n\nLAUNCH\n[ ] Connect analytics\n[ ] Create a backup\n[ ] Check loading speed"],
+          ["Design Review Checklist", "A practical checklist for reviewing designs before delivery.", "Design", "design", "🎨", "orange", "design-review-checklist.txt", "Design Review Checklist\n\n[ ] Confirm project dimensions\n[ ] Check typography and readability\n[ ] Review colors and contrast\n[ ] Check spacing and alignment\n[ ] Verify image quality\n[ ] Review mobile layouts\n[ ] Organize and name files\n[ ] Export final files\n[ ] Confirm usage rights"],
+          ["Project Tracker Template", "A CSV template for organizing tasks, owners, and deadlines.", "Business", "business", "📋", "pink", "project-tracker.csv", "Task,Owner,Start Date,Due Date,Status,Notes\nDefine project goals,,,,Not started,\nPrepare resources,,,,Not started,\nComplete first draft,,,,Not started,\nReview work,,,,Not started,\nDeliver final version,,,,Not started"],
+          ["Landing Page Outline", "A text outline to help you plan a landing page for your project.", "Design", "design", "🧩", "yellow", "landing-page-outline.txt", "Landing Page Outline\n\n1. HEADLINE\nDescribe the main benefit.\n\n2. SUBHEADLINE\nExplain who the offer helps.\n\n3. PRIMARY CALL TO ACTION\nChoose one clear action.\n\n4. BENEFITS\nBenefit 1:\nBenefit 2:\nBenefit 3:\n\n5. HOW IT WORKS\nStep 1:\nStep 2:\nStep 3:\n\n6. FREQUENTLY ASKED QUESTIONS\nQuestion 1:\nQuestion 2:\n\n7. FINAL CALL TO ACTION"]
+        ]
+      }
+    };
+
+    let currentLanguage = "ar";
+    let activeCategory = "all";
+    let searchTerm = "";
+
+    const grid = document.getElementById("productGrid");
+    const searchInput = document.getElementById("searchInput");
+
+    function renderProducts() {
+      const t = translations[currentLanguage];
+      grid.innerHTML = "";
+
+      const products = t.products.filter(product => {
+        const matchesCategory =
+          activeCategory === "all" || product[3] === activeCategory;
+
+        const searchableText = [
+          product[0], product[1], product[2], product[6]
+        ].join(" ").toLowerCase();
+
+        const matchesSearch = searchableText.includes(searchTerm.toLowerCase());
+
+        return matchesCategory && matchesSearch;
+      });
+
+      if (products.length === 0) {
+        grid.innerHTML = `<div class="empty">${t.noResults}</div>`;
+        return;
+      }
+
+      products.forEach(product => {
+        const card = document.createElement("article");
+        card.className = "product";
+
+        const cover = document.createElement("div");
+        cover.className = "product-cover cover-" + product[5];
+        cover.textContent = product[4];
+        cover.setAttribute("aria-hidden", "true");
+
+        const body = document.createElement("div");
+        body.className = "product-body";
+
+        const tag = document.createElement("span");
+        tag.className = "tag";
+        tag.textContent = product[2];
+
+        const title = document.createElement("h3");
+        title.textContent = product[0];
+
+        const description = document.createElement("p");
+        description.textContent = product[1];
+
+        const footer = document.createElement("div");
+        footer.className = "product-footer";
+
+        const free = document.createElement("span");
+        free.className = "free-label";
+        free.textContent = "✓ " + t.free;
+
+        const button = document.createElement("button");
+        button.className = "download-btn";
+        button.type = "button";
+        button.textContent = "↓ " + t.download;
+
+        button.addEventListener("click", () => {
+          const blob = new Blob(["\uFEFF" + product[7]], {
+            type: product[6].endsWith(".csv")
+              ? "text/csv;charset=utf-8"
+              : "text/plain;charset=utf-8"
+          });
+
+          const url = URL.createObjectURL(blob);
+          const link = document.createElement("a");
+          link.href = url;
+          link.download = product[6];
+          document.body.appendChild(link);
+          link.click();
+          link.remove();
+          URL.revokeObjectURL(url);
+        });
+
+        footer.append(free, button);
+        body.append(tag, title, description, footer);
+        card.append(cover, body);
+        grid.appendChild(card);
+      });
+    }
+
+    function applyLanguage() {
+      const t = translations[currentLanguage];
+
+      document.documentElement.lang = currentLanguage;
+      document.documentElement.dir = currentLanguage === "ar" ? "rtl" : "ltr";
+      document.title = currentLanguage === "ar"
+        ? "FreeKit | مكتبتك الرقمية المجانية"
+        : "FreeKit | Free Digital Library";
+
+      document.querySelectorAll("[data-i18n]").forEach(element => {
+        const key = element.dataset.i18n;
+        if (t[key] !== undefined) element.innerHTML = t[key];
+      });
+
+      searchInput.placeholder = t.searchPlaceholder;
+      document.getElementById("languageBtn").textContent =
+        currentLanguage === "ar" ? "English" : "العربية";
+
+      renderProducts();
+    }
+
+    document.getElementById("languageBtn").addEventListener("click", () => {
+      currentLanguage = currentLanguage === "ar" ? "en" : "ar";
+      applyLanguage();
+    });
+
+    document.getElementById("searchForm").addEventListener("submit", event => {
+      event.preventDefault();
+      searchTerm = searchInput.value.trim();
+      renderProducts();
+      document.getElementById("products").scrollIntoView({ behavior: "smooth" });
+    });
+
+    searchInput.addEventListener("input", () => {
+      searchTerm = searchInput.value.trim();
+      renderProducts();
+    });
+
+    document.querySelectorAll(".category").forEach(button => {
+      button.addEventListener("click", () => {
+        const clickedCategory = button.dataset.category;
+
+        activeCategory = activeCategory === clickedCategory
+          ? "all"
+          : clickedCategory;
+
+        document.querySelectorAll(".category").forEach(item => {
+          item.classList.toggle("active", item.dataset.category === activeCategory);
+        });
+
+        renderProducts();
+        document.getElementById("products").scrollIntoView({ behavior: "smooth" });
+      });
+    });
+
+    document.getElementById("year").textContent = new Date().getFullYear();
+
+    applyLanguage();
+  </script>
+</body>
+</html>
