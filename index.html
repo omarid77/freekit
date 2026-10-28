@@ -14,6 +14,9 @@
   <meta property="og:type" content="website">
   <title>FreeKit | مكتبتك الرقمية المجانية</title>
 
+  <!-- مكتبة SheetJS لإنشاء ملفات Excel حقيقية -->
+  <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+
   <style>
     :root {
       --bg: #f7f8fc;
@@ -476,7 +479,7 @@
           ["قائمة مراجعة التصميم", "قائمة عملية لمراجعة تصميمك قبل تسليمه للعميل.", "التصميم", "design", "🎨", "orange", "design-review-checklist.txt", "Design Review Checklist\n\n[ ] Confirm project dimensions\n[ ] Check typography and readability\n[ ] Review colors and contrast\n[ ] Check spacing and alignment\n[ ] Verify image quality\n[ ] Review mobile layouts\n[ ] Organize and name files\n[ ] Export final files\n[ ] Confirm usage rights"],
           ["نموذج متابعة مشروع", "نموذج CSV لتنظيم المهام والمسؤوليات ومواعيد التسليم.", "الأعمال", "business", "📋", "pink", "project-tracker.csv", "Task,Owner,Start Date,Due Date,Status,Notes\nDefine project goals,,,,Not started,\nPrepare resources,,,,Not started,\nComplete first draft,,,,Not started,\nReview work,,,,Not started,\nDeliver final version,,,,Not started"],
           ["قالب تخطيط صفحة هبوط", "هيكل نصي يساعدك على تخطيط صفحة هبوط لمشروعك.", "التصميم", "design", "🧩", "yellow", "landing-page-outline.txt", "Landing Page Outline\n\n1. HEADLINE\nDescribe the main benefit.\n\n2. SUBHEADLINE\nExplain who the offer helps.\n\n3. PRIMARY CALL TO ACTION\nChoose one clear action.\n\n4. BENEFITS\nBenefit 1:\nBenefit 2:\nBenefit 3:\n\n5. HOW IT WORKS\nStep 1:\nStep 2:\nStep 3:\n\n6. FREQUENTLY ASKED QUESTIONS\nQuestion 1:\nQuestion 2:\n\n7. FINAL CALL TO ACTION"],
-          ["تقويم محتوى السوشيال ميديا", "تقويم شهري يضم أفكار منشورات وتواريخ نشر وحالات متابعة، قابل للتعديل في Excel أو Google Sheets.", "صناعة المحتوى", "content", "📅", "purple", "social-media-content-calendar.csv", ""]
+          ["تقويم محتوى السوشيال ميديا الاحترافي", "ملف Excel متكامل بالعربية والإنجليزية: تقويم 30 يومًا، وبنك أفكار، ومتابعة أداء، ودليل استخدام.", "صناعة المحتوى", "content", "📅", "purple", "social-media-content-calendar.xlsx", ""]
         ]
       },
 
@@ -517,7 +520,7 @@
           ["Design Review Checklist", "A practical checklist for reviewing designs before delivery.", "Design", "design", "🎨", "orange", "design-review-checklist.txt", "Design Review Checklist\n\n[ ] Confirm project dimensions\n[ ] Check typography and readability\n[ ] Review colors and contrast\n[ ] Check spacing and alignment\n[ ] Verify image quality\n[ ] Review mobile layouts\n[ ] Organize and name files\n[ ] Export final files\n[ ] Confirm usage rights"],
           ["Project Tracker Template", "A CSV template for organizing tasks, owners, and deadlines.", "Business", "business", "📋", "pink", "project-tracker.csv", "Task,Owner,Start Date,Due Date,Status,Notes\nDefine project goals,,,,Not started,\nPrepare resources,,,,Not started,\nComplete first draft,,,,Not started,\nReview work,,,,Not started,\nDeliver final version"],
           ["Landing Page Outline", "A text outline to help you plan a landing page for your project.", "Design", "design", "🧩", "yellow", "landing-page-outline.txt", "Landing Page Outline\n\n1. HEADLINE\nDescribe the main benefit.\n\n2. SUBHEADLINE\nExplain who the offer helps.\n\n3. PRIMARY CALL TO ACTION\nChoose one clear action.\n\n4. BENEFITS\nBenefit 1:\nBenefit 2:\nBenefit 3:\n\n5. HOW IT WORKS\nStep 1:\nStep 2:\nStep 3:\n\n6. FREQUENTLY ASKED QUESTIONS\nQuestion 1:\nQuestion 2:\n\n7. FINAL CALL TO ACTION"],
-          ["Social Media Content Calendar", "A monthly calendar of post ideas, publishing dates, and status tracking. Editable in Excel or Google Sheets.", "Content Creation", "content", "📅", "purple", "social-media-content-calendar.csv", ""]
+          ["Professional Social Media Content Calendar", "A bilingual Excel workbook with a 30-day calendar, idea bank, performance tracker, and usage guide.", "Content Creation", "content", "📅", "purple", "social-media-content-calendar.xlsx", ""]
         ]
       }
     };
@@ -528,54 +531,6 @@
 
     const grid = document.getElementById("productGrid");
     const searchInput = document.getElementById("searchInput");
-
-    function csvEscape(value) {
-      return '"' + String(value ?? "").replace(/"/g, '""') + '"';
-    }
-
-    function getCalendarCSV(language) {
-      const rows = language === "ar"
-        ? [
-            ["تاريخ النشر", "المنصة", "نوع المحتوى", "فكرة المنشور", "نص مقترح", "الوسوم", "الحالة"],
-            ["2026-11-01", "إنستغرام", "كاروسيل", "منشور تعريفي", "عرّف الجمهور بعلامتك التجارية", "#العلامة_التجارية", "مخطط"],
-            ["2026-11-03", "فيسبوك", "صورة", "نصيحة مفيدة", "شارك نصيحة عملية مع جمهورك", "#نصائح", "مخطط"],
-            ["2026-11-05", "إنستغرام", "ريلز", "خلف الكواليس", "اعرض جزءًا من طريقة عملك", "#خلف_الكواليس", "مخطط"],
-            ["2026-11-08", "لينكدإن", "نصي", "معلومة من المجال", "شارك معلومة مفيدة من تخصصك", "#خبرة", "مخطط"],
-            ["2026-11-10", "إنستغرام", "كاروسيل", "أخطاء شائعة", "اشرح أخطاء يقع فيها المبتدئون", "#تعلم", "مخطط"],
-            ["2026-11-12", "فيسبوك", "صورة", "ميزة منتج", "سلط الضوء على ميزة مفيدة", "#منتج", "مخطط"],
-            ["2026-11-15", "إنستغرام", "قصة", "اسأل الجمهور", "اطرح سؤالًا وشجع المتابعين على الرد", "#تفاعل", "مخطط"],
-            ["2026-11-17", "لينكدإن", "نصي", "نصيحة مهنية", "شارك نصيحة قابلة للتطبيق", "#عمل", "مخطط"],
-            ["2026-11-19", "إنستغرام", "ريلز", "شرح سريع", "اشرح مهارة بسيطة في خطوات", "#شرح", "مخطط"],
-            ["2026-11-22", "فيسبوك", "صورة", "سؤال متكرر", "أجب عن سؤال يتكرر من العملاء", "#أسئلة", "مخطط"],
-            ["2026-11-24", "إنستغرام", "كاروسيل", "دليل خطوة بخطوة", "قدم طريقة تنفيذ واضحة", "#دليل", "مخطط"],
-            ["2026-11-26", "لينكدإن", "نصي", "درس مستفاد", "شارك درسًا تعلمته من تجربة", "#تجربة", "مخطط"],
-            ["2026-11-27", "إنستغرام", "قصة", "تصويت", "اطلب من المتابعين الاختيار بين خيارين", "#تصويت", "مخطط"],
-            ["2026-11-28", "فيسبوك", "صورة", "ملخص الأسبوع", "لخص أهم ما نُشر خلال الأسبوع", "#ملخص", "مخطط"],
-            ["2026-11-29", "إنستغرام", "كاروسيل", "خطة الشهر القادم", "اعرض لمحة عن محتوى الشهر القادم", "#تخطيط", "مخطط"]
-          ]
-        : [
-            ["Publish Date", "Platform", "Content Type", "Post Idea", "Suggested Caption", "Hashtags", "Status"],
-            ["2026-11-01", "Instagram", "Carousel", "Introduction post", "Introduce your brand", "#branding", "Planned"],
-            ["2026-11-03", "Facebook", "Image", "Share a useful tip", "Share one helpful tip with your audience", "#tips", "Planned"],
-            ["2026-11-05", "Instagram", "Reel", "Behind the scenes", "Show part of how you work", "#behindthescenes", "Planned"],
-            ["2026-11-08", "LinkedIn", "Text", "Industry insight", "Share a useful insight from your field", "#industry", "Planned"],
-            ["2026-11-10", "Instagram", "Carousel", "Common mistakes", "Explain common beginner mistakes", "#education", "Planned"],
-            ["2026-11-12", "Facebook", "Image", "Product highlight", "Highlight a useful product feature", "#product", "Planned"],
-            ["2026-11-15", "Instagram", "Story", "Ask your audience", "Ask a question and invite replies", "#community", "Planned"],
-            ["2026-11-17", "LinkedIn", "Text", "Professional advice", "Share practical professional advice", "#professional", "Planned"],
-            ["2026-11-19", "Instagram", "Reel", "Quick tutorial", "Explain one simple skill", "#tutorial", "Planned"],
-            ["2026-11-22", "Facebook", "Image", "Customer FAQ", "Answer a common customer question", "#FAQ", "Planned"],
-            ["2026-11-24", "Instagram", "Carousel", "Step-by-step guide", "Explain a process clearly", "#howto", "Planned"],
-            ["2026-11-26", "LinkedIn", "Text", "Lessons learned", "Share a lesson from experience", "#lessons", "Planned"],
-            ["2026-11-27", "Instagram", "Story", "Poll", "Ask followers to choose between two options", "#poll", "Planned"],
-            ["2026-11-28", "Facebook", "Image", "Weekly recap", "Recap the week's highlights", "#recap", "Planned"],
-            ["2026-11-29", "Instagram", "Carousel", "Next month preview", "Preview next month's content", "#planning", "Planned"]
-          ];
-
-      return "\uFEFF" + rows
-        .map(row => row.map(csvEscape).join(","))
-        .join("\r\n");
-    }
 
     function downloadTextFile(filename, content, mimeType) {
       const blob = new Blob([content], { type: mimeType });
@@ -589,10 +544,645 @@
       link.click();
       link.remove();
 
-      // Do not revoke the object URL immediately; some browsers need time to start the download.
-      window.setTimeout(() => {
-        URL.revokeObjectURL(url);
-      }, 1500);
+      window.setTimeout(() => URL.revokeObjectURL(url), 1500);
+    }
+
+    /*
+      محتوى التقويم الاحترافي.
+      كل منشور يحتوي على بيانات عربية وإنجليزية داخل الملف نفسه.
+      يتم إنشاء التواريخ تلقائيًا من اليوم التالي لتاريخ التحميل.
+    */
+    const calendarPosts = [
+      {
+        goalAr: "التوعية بالعلامة التجارية", goalEn: "Brand awareness",
+        platformAr: "إنستغرام / فيسبوك", platformEn: "Instagram / Facebook",
+        typeAr: "كاروسيل", typeEn: "Carousel",
+        ideaAr: "عرّف الجمهور بالمشكلة الأساسية التي يحلها نشاطك.",
+        ideaEn: "Introduce the main problem your business solves.",
+        titleAr: "هل تواجه هذه المشكلة؟", titleEn: "Are you facing this problem?",
+        captionAr: "هل تواجه هذه المشكلة في عملك؟ في [اسم النشاط] نساعدك على فهم الحل واختيار الأنسب لك. أخبرنا عن أكبر تحدٍ تواجهه.",
+        captionEn: "Struggling with this problem in your business? At [Business Name], we help you understand your options and find the right solution. Tell us your biggest challenge.",
+        ctaAr: "اكتب أكبر تحدٍ تواجهه في التعليقات.", ctaEn: "Comment with your biggest challenge.",
+        tagsAr: "#مشاريع_صغيرة #نصائح #تطوير_الأعمال", tagsEn: "#SmallBusiness #BusinessTips #Growth"
+      },
+      {
+        goalAr: "التفاعل", goalEn: "Engagement",
+        platformAr: "إنستغرام ستوري", platformEn: "Instagram Stories",
+        typeAr: "استطلاع", typeEn: "Poll",
+        ideaAr: "اعرض خيارين مرتبطين بمنتجك أو خدمتك ودع الجمهور يصوّت.",
+        ideaEn: "Offer two relevant choices and let your audience vote.",
+        titleAr: "اختاروا معنا", titleEn: "Help us choose",
+        captionAr: "نحب نعرف رأيكم! أي اختيار تفضّلون: [الخيار الأول] أم [الخيار الثاني]؟ تصويتكم يساعدنا على تقديم ما يناسبكم.",
+        captionEn: "We want your opinion! Which do you prefer: [Option A] or [Option B]? Your vote helps us serve you better.",
+        ctaAr: "صوّت وشارك رأيك.", ctaEn: "Vote and share your thoughts.",
+        tagsAr: "#رأيكم_يهمنا #تفاعل", tagsEn: "#YourOpinion #Community"
+      },
+      {
+        goalAr: "التثقيف وبناء الثقة", goalEn: "Education and trust",
+        platformAr: "إنستغرام / لينكدإن", platformEn: "Instagram / LinkedIn",
+        typeAr: "كاروسيل تعليمي", typeEn: "Educational carousel",
+        ideaAr: "قدّم ثلاث نصائح عملية يستطيع الجمهور تطبيقها اليوم.",
+        ideaEn: "Share three practical tips your audience can use today.",
+        titleAr: "3 نصائح تبدأ بها اليوم", titleEn: "3 tips you can use today",
+        captionAr: "مش لازم تغيّر كل حاجة مرة واحدة. ابدأ بالنصائح الثلاث الموجودة في المنشور، وطبّق خطوة واحدة اليوم. احفظ المنشور للرجوع إليه.",
+        captionEn: "You don't need to change everything at once. Start with these three tips and apply one step today. Save this post for later.",
+        ctaAr: "احفظ المنشور وجرّب أول نصيحة.", ctaEn: "Save this post and try the first tip.",
+        tagsAr: "#نصائح_عملية #تعلم #مشاريع", tagsEn: "#PracticalTips #Learn #SmallBusiness"
+      },
+      {
+        goalAr: "عرض المنتج أو الخدمة", goalEn: "Product or service awareness",
+        platformAr: "إنستغرام / فيسبوك", platformEn: "Instagram / Facebook",
+        typeAr: "صورة منتج", typeEn: "Product image",
+        ideaAr: "اشرح فائدة واحدة واضحة لمنتج أو خدمة بدل الاكتفاء بعرض الاسم.",
+        ideaEn: "Show one clear benefit of a product or service.",
+        titleAr: "كيف يساعدك [اسم المنتج]؟", titleEn: "How can [Product] help you?",
+        captionAr: "صممنا [اسم المنتج أو الخدمة] لمساعدتك على [الفائدة الأساسية]. تعرّف على التفاصيل واكتشف إن كان مناسبًا لاحتياجاتك.",
+        captionEn: "We created [Product or Service] to help you [main benefit]. Explore the details and see whether it fits your needs.",
+        ctaAr: "راسلنا لمعرفة التفاصيل.", ctaEn: "Message us to learn more.",
+        tagsAr: "#منتجات #خدمات #حلول", tagsEn: "#Products #Services #Solutions"
+      },
+      {
+        goalAr: "بناء الثقة", goalEn: "Trust building",
+        platformAr: "إنستغرام / فيسبوك", platformEn: "Instagram / Facebook",
+        typeAr: "خلف الكواليس", typeEn: "Behind the scenes",
+        ideaAr: "اعرض جزءًا حقيقيًا من خطوات العمل أو تجهيز الطلبات.",
+        ideaEn: "Show a real part of your workflow or order preparation.",
+        titleAr: "من وراء الكواليس", titleEn: "Behind the scenes",
+        captionAr: "كل نتيجة جيدة وراءها خطوات وتفاصيل. هذه لمحة من طريقة عملنا واهتمامنا بالتفاصيل قبل تقديم الخدمة أو المنتج.",
+        captionEn: "Every good result takes work and attention to detail. Here's a look at our process before delivering a product or service.",
+        ctaAr: "ما الجزء الذي تود رؤيته في المرة القادمة؟", ctaEn: "What would you like to see next?",
+        tagsAr: "#خلف_الكواليس #رحلة_العمل", tagsEn: "#BehindTheScenes #OurProcess"
+      },
+      {
+        goalAr: "التثقيف", goalEn: "Education",
+        platformAr: "إنستغرام / لينكدإن", platformEn: "Instagram / LinkedIn",
+        typeAr: "منشور نصي", typeEn: "Text post",
+        ideaAr: "اشرح خطأ شائعًا يقع فيه جمهورك مع طريقة تجنبه.",
+        ideaEn: "Explain a common mistake and how to avoid it.",
+        titleAr: "خطأ شائع وكيف تتجنبه", titleEn: "A common mistake and how to avoid it",
+        captionAr: "من الأخطاء الشائعة في [المجال]: [الخطأ]. لتجنبه، جرّب [الحل العملي]. التفاصيل الصغيرة قد تصنع فرقًا كبيرًا.",
+        captionEn: "A common mistake in [your field] is [mistake]. To avoid it, try [practical solution]. Small improvements can make a big difference.",
+        ctaAr: "احفظ النصيحة وشاركها مع شخص يحتاجها.", ctaEn: "Save this tip and share it with someone who needs it.",
+        tagsAr: "#أخطاء_شائعة #نصائح", tagsEn: "#CommonMistakes #Tips"
+      },
+      {
+        goalAr: "التفاعل", goalEn: "Engagement",
+        platformAr: "فيسبوك / إنستغرام", platformEn: "Facebook / Instagram",
+        typeAr: "سؤال للجمهور", typeEn: "Audience question",
+        ideaAr: "اسأل عن أكثر شيء يهم الجمهور عند اختيار منتج أو خدمة.",
+        ideaEn: "Ask what matters most when choosing a product or service.",
+        titleAr: "ما أهم شيء بالنسبة لك؟", titleEn: "What matters most to you?",
+        captionAr: "عندما تختار [منتجًا أو خدمة]، ما الأولوية بالنسبة لك: الجودة، السعر، السرعة، أم خدمة العملاء؟ نحب نسمع رأيك.",
+        captionEn: "When choosing [a product or service], what matters most: quality, price, speed, or customer service? We'd love to hear your opinion.",
+        ctaAr: "اكتب اختيارك في التعليقات.", ctaEn: "Share your choice in the comments.",
+        tagsAr: "#شاركنا_رأيك #مجتمعنا", tagsEn: "#ShareYourThoughts #Community"
+      },
+      {
+        goalAr: "إثبات الخبرة", goalEn: "Demonstrate expertise",
+        platformAr: "لينكدإن / فيسبوك", platformEn: "LinkedIn / Facebook",
+        typeAr: "دليل عملي", typeEn: "Practical guide",
+        ideaAr: "قسّم مهمة معقدة إلى ثلاث خطوات بسيطة.",
+        ideaEn: "Break a complicated task into three simple steps.",
+        titleAr: "ابدأ بهذه الخطوات الثلاث", titleEn: "Start with these three steps",
+        captionAr: "لو كنت تريد تحسين [النتيجة]، ابدأ بتحديد هدف واضح، ثم نفّذ خطوة صغيرة، وبعدها راجع النتيجة. البساطة والاستمرار أفضل من التعقيد.",
+        captionEn: "To improve [result], define a clear goal, take one small action, and review the outcome. Simple consistent steps beat unnecessary complexity.",
+        ctaAr: "أي خطوة ستبدأ بها؟", ctaEn: "Which step will you start with?",
+        tagsAr: "#تطوير #دليل_عملي", tagsEn: "#Improvement #HowTo"
+      },
+      {
+        goalAr: "عرض تجربة عميل", goalEn: "Customer proof",
+        platformAr: "إنستغرام / فيسبوك", platformEn: "Instagram / Facebook",
+        typeAr: "قصة نجاح", typeEn: "Customer story",
+        ideaAr: "شارك تجربة حقيقية بإذن صاحبها مع توضيح النتيجة.",
+        ideaEn: "Share a real customer experience with permission and explain the outcome.",
+        titleAr: "تجربة عميل معنا", titleEn: "A customer experience",
+        captionAr: "بموافقة العميل، نشارك تجربته مع [المنتج أو الخدمة] وكيف ساعده على [نتيجة حقيقية]. كل حالة مختلفة، ويسعدنا فهم احتياجاتك.",
+        captionEn: "With the customer's permission, we're sharing how [product or service] helped them achieve [real outcome]. Every situation is different, and we're happy to understand your needs.",
+        ctaAr: "تواصل معنا لمعرفة ما يناسبك.", ctaEn: "Contact us to discuss your needs.",
+        tagsAr: "#تجربة_عميل #قصص_نجاح", tagsEn: "#CustomerStory #SuccessStory"
+      },
+      {
+        goalAr: "التفاعل", goalEn: "Engagement",
+        platformAr: "إنستغرام ستوري", platformEn: "Instagram Stories",
+        typeAr: "اختبار قصير", typeEn: "Quick quiz",
+        ideaAr: "اكتب سؤالًا بسيطًا من مجال عملك واعرض الإجابة في قصة تالية.",
+        ideaEn: "Ask a simple industry-related question and reveal the answer in the next story.",
+        titleAr: "اختبر معلوماتك", titleEn: "Test your knowledge",
+        captionAr: "سؤال سريع: [اكتب السؤال]. اختار إجابتك، وسنشارك التوضيح والإجابة الصحيحة في القصة التالية.",
+        captionEn: "Quick question: [Insert question]. Choose your answer and we'll share the explanation in the next story.",
+        ctaAr: "شارك في الاختبار.", ctaEn: "Take the quiz.",
+        tagsAr: "#اختبر_معلوماتك #تعلم", tagsEn: "#QuickQuiz #Learn"
+      },
+      {
+        goalAr: "معالجة اعتراضات الشراء", goalEn: "Address purchase objections",
+        platformAr: "إنستغرام / فيسبوك", platformEn: "Instagram / Facebook",
+        typeAr: "أسئلة وأجوبة", typeEn: "FAQ",
+        ideaAr: "أجب عن سؤال يتكرر قبل شراء المنتج أو طلب الخدمة.",
+        ideaEn: "Answer a question customers frequently ask before buying.",
+        titleAr: "سؤال يتكرر كثيرًا", titleEn: "A frequently asked question",
+        captionAr: "من أكثر الأسئلة التي تصلنا: [السؤال]. الإجابة هي [إجابة واضحة وصادقة]. وإذا كان لديك استفسار آخر، يسعدنا مساعدتك.",
+        captionEn: "One question we often receive is: [Question]. The answer is [clear, honest answer]. If you have another question, we're happy to help.",
+        ctaAr: "اكتب سؤالك في التعليقات.", ctaEn: "Leave your question in the comments.",
+        tagsAr: "#أسئلة_شائعة #خدمة_العملاء", tagsEn: "#FAQ #CustomerSupport"
+      },
+      {
+        goalAr: "زيادة الحفظ والمشاركة", goalEn: "Saves and shares",
+        platformAr: "إنستغرام", platformEn: "Instagram",
+        typeAr: "قائمة تحقق", typeEn: "Checklist",
+        ideaAr: "أنشئ قائمة تحقق قصيرة مرتبطة بمهمة مهمة لجمهورك.",
+        ideaEn: "Create a short checklist for an important audience task.",
+        titleAr: "احفظ هذه القائمة", titleEn: "Save this checklist",
+        captionAr: "قبل أن تبدأ [المهمة]، تأكد من مراجعة هذه النقاط: [النقطة الأولى]، [الثانية]، [الثالثة]. استخدم القائمة لتجنب نسيان التفاصيل.",
+        captionEn: "Before starting [task], check these points: [first], [second], and [third]. Use this checklist to avoid missing important details.",
+        ctaAr: "احفظ المنشور لاستخدامه لاحقًا.", ctaEn: "Save this post for later.",
+        tagsAr: "#قائمة_تحقق #تنظيم", tagsEn: "#Checklist #Productivity"
+      },
+      {
+        goalAr: "التعريف بالفريق", goalEn: "Team introduction",
+        platformAr: "إنستغرام / لينكدإن", platformEn: "Instagram / LinkedIn",
+        typeAr: "صورة أو فيديو", typeEn: "Photo or video",
+        ideaAr: "عرّف الجمهور بشخص من الفريق ودوره في تقديم الخدمة.",
+        ideaEn: "Introduce a team member and explain their role.",
+        titleAr: "تعرّف على فريقنا", titleEn: "Meet our team",
+        captionAr: "نعرّفكم اليوم على [الاسم أو الدور]، المسؤول عن [المهمة]. نؤمن أن العمل الجيد يبدأ بفريق يهتم بالتفاصيل وخدمة العملاء.",
+        captionEn: "Meet [name or role], who helps us with [responsibility]. We believe good work starts with a team that cares about details and customers.",
+        ctaAr: "ما الذي تود معرفته عن فريقنا؟", ctaEn: "What would you like to know about our team?",
+        tagsAr: "#فريق_العمل #من_نحن", tagsEn: "#Teamwork #MeetTheTeam"
+      },
+      {
+        goalAr: "عرض القيمة", goalEn: "Value proposition",
+        platformAr: "إنستغرام / فيسبوك", platformEn: "Instagram / Facebook",
+        typeAr: "مقارنة توضيحية", typeEn: "Comparison",
+        ideaAr: "اشرح الفرق بين الحل المناسب والحل غير المناسب دون ادعاءات مضللة.",
+        ideaEn: "Explain the difference between a suitable and unsuitable solution without misleading claims.",
+        titleAr: "كيف تختار الحل المناسب؟", titleEn: "How to choose the right solution",
+        captionAr: "الاختيار الصحيح يبدأ بفهم احتياجاتك. قارن بين [المعيار الأول] و[المعيار الثاني] قبل اتخاذ القرار، ولا تعتمد على السعر وحده.",
+        captionEn: "The right choice starts with understanding your needs. Compare [criterion one] and [criterion two] before deciding, rather than relying on price alone.",
+        ctaAr: "احفظ المقارنة قبل اتخاذ قرارك.", ctaEn: "Save this comparison before deciding.",
+        tagsAr: "#اختيار_ذكي #نصائح_شراء", tagsEn: "#SmartChoices #BuyingTips"
+      },
+      {
+        goalAr: "التعريف بالعملية", goalEn: "Explain your process",
+        platformAr: "إنستغرام / لينكدإن", platformEn: "Instagram / LinkedIn",
+        typeAr: "مخطط خطوات", typeEn: "Process infographic",
+        ideaAr: "اشرح للعميل ما الذي يحدث من أول التواصل حتى التسليم.",
+        ideaEn: "Explain the customer journey from first contact to delivery.",
+        titleAr: "ماذا يحدث بعد التواصل معنا؟", titleEn: "What happens after you contact us?",
+        captionAr: "نحرص على وضوح الخطوات: نفهم احتياجك، نتفق على التفاصيل، ننفذ العمل، ثم نراجع النتيجة ونسلّمها لك.",
+        captionEn: "We keep the process clear: understand your needs, agree on the details, complete the work, then review and deliver the result.",
+        ctaAr: "راسلنا لبدء الخطوة الأولى.", ctaEn: "Message us to take the first step.",
+        tagsAr: "#طريقة_العمل #تجربة_العميل", tagsEn: "#OurProcess #CustomerExperience"
+      },
+      {
+        goalAr: "بناء المجتمع", goalEn: "Community building",
+        platformAr: "إنستغرام / فيسبوك", platformEn: "Instagram / Facebook",
+        typeAr: "سؤال مفتوح", typeEn: "Open question",
+        ideaAr: "اطلب من الجمهور مشاركة تجربة أو نصيحة مرتبطة بالمجال.",
+        ideaEn: "Invite your audience to share an experience or useful tip.",
+        titleAr: "شاركنا تجربتك", titleEn: "Share your experience",
+        captionAr: "كل شخص يتعلم شيئًا مختلفًا من تجربته. ما النصيحة التي كنت تتمنى معرفتها عندما بدأت في [المجال]؟",
+        captionEn: "Everyone learns something different from experience. What advice do you wish you had known when you started in [field]?",
+        ctaAr: "شارك نصيحتك ليستفيد الآخرون.", ctaEn: "Share your advice to help others.",
+        tagsAr: "#خبرات #مجتمع #تجارب", tagsEn: "#Experience #Community #Lessons"
+      },
+      {
+        goalAr: "تحويل المتابعين إلى عملاء", goalEn: "Conversion",
+        platformAr: "إنستغرام / فيسبوك", platformEn: "Instagram / Facebook",
+        typeAr: "عرض خدمة", typeEn: "Service offer",
+        ideaAr: "وضّح لمن تناسب خدمتك وما الذي يحصل عليه العميل.",
+        ideaEn: "Explain who your service is for and what the customer receives.",
+        titleAr: "هل هذه الخدمة مناسبة لك؟", titleEn: "Is this service right for you?",
+        captionAr: "إذا كنت تبحث عن [النتيجة] وتحتاج إلى [نوع المساعدة]، فقد تكون خدمة [اسم الخدمة] مناسبة لك. تواصل معنا لمعرفة التفاصيل والشروط.",
+        captionEn: "If you're looking for [result] and need [type of help], [service name] may be right for you. Contact us for details and terms.",
+        ctaAr: "اطلب التفاصيل أو عرض السعر.", ctaEn: "Request details or a quotation.",
+        tagsAr: "#خدمات #عرض_سعر #مشاريع", tagsEn: "#Services #GetAQuote #Business"
+      },
+      {
+        goalAr: "تثقيف العملاء", goalEn: "Customer education",
+        platformAr: "إنستغرام / لينكدإن", platformEn: "Instagram / LinkedIn",
+        typeAr: "معلومة سريعة", typeEn: "Quick tip",
+        ideaAr: "شارك حقيقة أو معلومة عملية مع توضيح مصدرها عند الحاجة.",
+        ideaEn: "Share a practical fact and cite a source when appropriate.",
+        titleAr: "معلومة قد تفيدك", titleEn: "A useful fact to know",
+        captionAr: "هل تعلم أن [معلومة موثوقة مرتبطة بالمجال]؟ فهم هذه النقطة يساعدك على [فائدة عملية]. أضف مصدر المعلومة عند نشرها.",
+        captionEn: "Did you know [reliable industry fact]? Understanding this can help you [practical benefit]. Include the source when publishing.",
+        ctaAr: "شارك المعلومة مع المهتمين.", ctaEn: "Share this with someone interested.",
+        tagsAr: "#معلومات #تعلم_مستمر", tagsEn: "#DidYouKnow #Learning"
+      },
+      {
+        goalAr: "إبراز الجودة", goalEn: "Quality and detail",
+        platformAr: "إنستغرام / فيسبوك", platformEn: "Instagram / Facebook",
+        typeAr: "تفاصيل المنتج", typeEn: "Product details",
+        ideaAr: "اعرض تفصيلًا صغيرًا يوضح جودة المنتج أو طريقة تنفيذ الخدمة.",
+        ideaEn: "Highlight a detail that demonstrates product or service quality.",
+        titleAr: "التفاصيل تصنع الفرق", titleEn: "Details make a difference",
+        captionAr: "نهتم في [اسم النشاط] بتفاصيل مثل [تفصيل حقيقي] لأنها تؤثر على تجربة العميل. هذه إحدى الخطوات التي نتبعها للحفاظ على الجودة.",
+        captionEn: "At [Business Name], we care about details like [real detail] because they shape the customer experience. Here's one step we take to maintain quality.",
+        ctaAr: "ما التفصيل الذي تهتم به عند الشراء؟", ctaEn: "Which detail matters most when you buy?",
+        tagsAr: "#جودة #اهتمام_بالتفاصيل", tagsEn: "#Quality #AttentionToDetail"
+      },
+      {
+        goalAr: "التفاعل", goalEn: "Engagement",
+        platformAr: "إنستغرام ستوري", platformEn: "Instagram Stories",
+        typeAr: "صندوق أسئلة", typeEn: "Question box",
+        ideaAr: "افتح المجال للأسئلة عن منتج أو خدمة أو مجال تخصصك.",
+        ideaEn: "Invite questions about your product, service, or expertise.",
+        titleAr: "اسألنا أي سؤال", titleEn: "Ask us anything",
+        captionAr: "عندك سؤال عن [المجال أو الخدمة]؟ اكتبه هنا، وسنختار مجموعة من الأسئلة للإجابة عنها بوضوح في القصص القادمة.",
+        captionEn: "Have a question about [topic or service]? Drop it here. We'll answer selected questions clearly in upcoming stories.",
+        ctaAr: "اكتب سؤالك في صندوق الأسئلة.", ctaEn: "Submit your question in the box.",
+        tagsAr: "#اسألنا #أسئلة_وأجوبة", tagsEn: "#AskUs #QandA"
+      },
+      {
+        goalAr: "تسهيل قرار الشراء", goalEn: "Help purchase decisions",
+        platformAr: "إنستغرام / فيسبوك", platformEn: "Instagram / Facebook",
+        typeAr: "دليل اختيار", typeEn: "Buying guide",
+        ideaAr: "قدّم معايير تساعد العميل على اختيار المنتج المناسب لاحتياجه.",
+        ideaEn: "Provide criteria that help customers choose the right product.",
+        titleAr: "قبل ما تختار، راجع هذه النقاط", titleEn: "Check these points before choosing",
+        captionAr: "قبل شراء [المنتج]، حدّد احتياجك، وقارن المواصفات، وتأكد من شروط الاستخدام والاستبدال. القرار الأفضل هو ما يناسبك فعلًا.",
+        captionEn: "Before buying [product], define your needs, compare specifications, and check usage and return terms. The best choice is the one that truly fits you.",
+        ctaAr: "احفظ الدليل وقت المقارنة.", ctaEn: "Save this guide for comparison.",
+        tagsAr: "#دليل_الشراء #اختيار_المنتجات", tagsEn: "#BuyingGuide #ProductTips"
+      },
+      {
+        goalAr: "إظهار شخصية العلامة", goalEn: "Brand personality",
+        platformAr: "إنستغرام / لينكدإن", platformEn: "Instagram / LinkedIn",
+        typeAr: "قصة العلامة", typeEn: "Brand story",
+        ideaAr: "اشرح لماذا بدأ المشروع وما القيمة التي يريد تقديمها.",
+        ideaEn: "Explain why the business started and the value it aims to provide.",
+        titleAr: "لماذا بدأنا؟", titleEn: "Why we started",
+        captionAr: "بدأ [اسم النشاط] بهدف [الهدف الحقيقي]. نعمل على تقديم [القيمة] ونطوّر خدماتنا بناءً على احتياجات العملاء وملاحظاتهم.",
+        captionEn: "[Business Name] started with the goal of [real purpose]. We aim to provide [value] and improve through customer needs and feedback.",
+        ctaAr: "ما القيمة التي تبحث عنها في علامة تجارية؟", ctaEn: "What value do you look for in a brand?",
+        tagsAr: "#قصتنا #قيمنا", tagsEn: "#OurStory #OurValues"
+      },
+      {
+        goalAr: "زيادة التفاعل", goalEn: "Increase engagement",
+        platformAr: "إنستغرام / فيسبوك", platformEn: "Instagram / Facebook",
+        typeAr: "صح أم خطأ", typeEn: "True or false",
+        ideaAr: "اعرض اعتقادًا شائعًا في مجالك ووضّح الإجابة.",
+        ideaEn: "Present a common belief in your field and explain the answer.",
+        titleAr: "صح أم خطأ؟", titleEn: "True or false?",
+        captionAr: "هل تعتقد أن [اكتب اعتقادًا شائعًا]؟ الإجابة تعتمد على [التوضيح]. تحقق من المعلومات قبل اتخاذ قرار يتعلق باحتياجك.",
+        captionEn: "Do you think [insert common belief]? The answer depends on [explanation]. Check the facts before making a decision about your needs.",
+        ctaAr: "اكتب توقعك قبل قراءة الإجابة.", ctaEn: "Comment your guess before reading the answer.",
+        tagsAr: "#صح_أم_خطأ #معلومة", tagsEn: "#TrueOrFalse #FactCheck"
+      },
+      {
+        goalAr: "إبراز الفوائد", goalEn: "Highlight benefits",
+        platformAr: "إنستغرام / فيسبوك", platformEn: "Instagram / Facebook",
+        typeAr: "قائمة فوائد", typeEn: "Benefits list",
+        ideaAr: "اذكر ثلاث فوائد حقيقية يقدمها المنتج أو الخدمة.",
+        ideaEn: "List three genuine benefits of your product or service.",
+        titleAr: "3 فوائد قد تهمك", titleEn: "3 benefits you may value",
+        captionAr: "قد يساعدك [المنتج أو الخدمة] على [الفائدة الأولى] و[الثانية] و[الثالثة]. اختر الفائدة الأهم لاحتياجك وتعرّف على التفاصيل قبل اتخاذ القرار.",
+        captionEn: "[Product or service] may help with [benefit one], [benefit two], and [benefit three]. Identify what matters most to you and review the details before deciding.",
+        ctaAr: "أي فائدة تهمك أكثر؟", ctaEn: "Which benefit matters most to you?",
+        tagsAr: "#فوائد #حلول_عملية", tagsEn: "#Benefits #PracticalSolutions"
+      },
+      {
+        goalAr: "إعادة استخدام المحتوى", goalEn: "Content repurposing",
+        platformAr: "إنستغرام / لينكدإن", platformEn: "Instagram / LinkedIn",
+        typeAr: "ملخص تعليمي", typeEn: "Educational recap",
+        ideaAr: "أعد تقديم نصيحة سابقة في شكل مختصر وسهل الحفظ.",
+        ideaEn: "Repackage an earlier tip into a short, saveable format.",
+        titleAr: "ملخص سريع لما تعلمناه", titleEn: "A quick recap",
+        captionAr: "لو فاتك المنشور السابق، إليك أهم النقاط: [النقطة الأولى]، [الثانية]، [الثالثة]. ارجع للمحتوى الكامل للحصول على التفاصيل.",
+        captionEn: "If you missed our earlier post, here are the key points: [first], [second], and [third]. Visit the original content for more details.",
+        ctaAr: "احفظ الملخص وشارك المنشور الأصلي.", ctaEn: "Save this recap and share the original post.",
+        tagsAr: "#ملخص #محتوى_مفيد", tagsEn: "#Recap #UsefulContent"
+      },
+      {
+        goalAr: "تحويل العملاء المحتملين", goalEn: "Lead generation",
+        platformAr: "لينكدإن / فيسبوك", platformEn: "LinkedIn / Facebook",
+        typeAr: "عرض مورد مجاني", typeEn: "Free resource",
+        ideaAr: "قدّم قائمة أو قالبًا مجانيًا مرتبطًا بمجال نشاطك.",
+        ideaEn: "Offer a free checklist or template related to your business.",
+        titleAr: "مورد مجاني يساعدك على البدء", titleEn: "A free resource to get started",
+        captionAr: "جهزنا [اسم المورد] ليساعدك على [الفائدة]. حمّله وخصصه حسب احتياجاتك، وشاركنا أكثر جزء وجدته مفيدًا.",
+        captionEn: "We created [resource name] to help you [benefit]. Download it, adapt it to your needs, and tell us which part you found most useful.",
+        ctaAr: "حمّل المورد من الرابط.", ctaEn: "Download the resource using the link.",
+        tagsAr: "#مورد_مجاني #أدوات_عملية", tagsEn: "#FreeResource #UsefulTools"
+      },
+      {
+        goalAr: "المبيعات", goalEn: "Sales",
+        platformAr: "إنستغرام / فيسبوك", platformEn: "Instagram / Facebook",
+        typeAr: "دعوة لاتخاذ إجراء", typeEn: "Call to action",
+        ideaAr: "وجّه الجمهور إلى خطوة واحدة واضحة مثل الاستفسار أو الحجز.",
+        ideaEn: "Guide the audience toward one clear action, such as asking or booking.",
+        titleAr: "جاهز للخطوة التالية؟", titleEn: "Ready for the next step?",
+        captionAr: "إذا كان [الهدف] ضمن أولوياتك، يمكننا مساعدتك في معرفة الخيارات المتاحة. تواصل معنا للحصول على معلومات تناسب احتياجك.",
+        captionEn: "If [goal] is a priority for you, we can help you explore available options. Contact us for information tailored to your needs.",
+        ctaAr: "تواصل معنا للاستفسار.", ctaEn: "Contact us to enquire.",
+        tagsAr: "#تواصل_معنا #خدمات", tagsEn: "#ContactUs #Services"
+      },
+      {
+        goalAr: "التخطيط والتحسين", goalEn: "Planning and improvement",
+        platformAr: "إنستغرام / لينكدإن", platformEn: "Instagram / LinkedIn",
+        typeAr: "مراجعة شهرية", typeEn: "Monthly review",
+        ideaAr: "اطلب من الجمهور مراجعة ما تعلمه أو ما يريد تحسينه الشهر القادم.",
+        ideaEn: "Invite your audience to review what they learned or want to improve next month.",
+        titleAr: "ما هدفك للشهر القادم؟", titleEn: "What's your goal for next month?",
+        captionAr: "قبل بداية شهر جديد، اختر هدفًا واحدًا واضحًا، وحدد خطوة قابلة للتنفيذ، وموعدًا لمراجعة تقدمك. التقدم المستمر يبدأ بخطة بسيطة.",
+        captionEn: "Before a new month begins, choose one clear goal, define an actionable step, and set a review date. Consistent progress starts with a simple plan.",
+        ctaAr: "اكتب هدفك للشهر القادم.", ctaEn: "Share your goal for next month.",
+        tagsAr: "#تخطيط #أهداف #تطوير", tagsEn: "#Planning #Goals #Growth"
+      },
+      {
+        goalAr: "بناء علاقة مع الجمهور", goalEn: "Audience relationship",
+        platformAr: "إنستغرام ستوري / فيسبوك", platformEn: "Instagram Stories / Facebook",
+        typeAr: "شكر وتقدير", typeEn: "Thank you post",
+        ideaAr: "اشكر الجمهور على التفاعل واذكر كيف تساعدك آراؤه على التحسين.",
+        ideaEn: "Thank your audience and explain how their feedback helps you improve.",
+        titleAr: "شكرًا لوجودكم معنا", titleEn: "Thank you for being here",
+        captionAr: "شكرًا لكل من تابعنا أو شارك رأيه أو جرّب خدماتنا. ملاحظاتكم تساعدنا على التطوير، ونتطلع إلى تقديم محتوى وخدمات أفضل.",
+        captionEn: "Thank you to everyone who follows us, shares feedback, or tries our services. Your input helps us improve, and we look forward to serving you better.",
+        ctaAr: "ما الموضوع الذي تريد أن نغطيه لاحقًا؟", ctaEn: "What topic should we cover next?",
+        tagsAr: "#شكرًا_لكم #مجتمعنا", tagsEn: "#ThankYou #OurCommunity"
+      },
+      {
+        goalAr: "التخطيط للشهر التالي", goalEn: "Next-month planning",
+        platformAr: "إنستغرام / لينكدإن", platformEn: "Instagram / LinkedIn",
+        typeAr: "إعلان محتوى قادم", typeEn: "Upcoming content preview",
+        ideaAr: "اعرض الموضوعات التي ستناقشها الشهر القادم واطلب اقتراحات الجمهور.",
+        ideaEn: "Preview next month's topics and ask the audience for suggestions.",
+        titleAr: "ماذا تريد أن ترى الشهر القادم؟", titleEn: "What would you like next month?",
+        captionAr: "نخطط لمحتوى الشهر القادم حول [الموضوع الأول] و[الموضوع الثاني]. نريد أن يكون المحتوى مفيدًا لك، لذلك نرحب باقتراحاتك.",
+        captionEn: "We're planning next month's content around [topic one] and [topic two]. We want it to be useful to you, so we'd love your suggestions.",
+        ctaAr: "اقترح موضوعًا في التعليقات.", ctaEn: "Suggest a topic in the comments.",
+        tagsAr: "#محتوى_قادم #شاركنا_اقتراحك", tagsEn: "#ComingUp #SuggestATopic"
+      },
+      {
+        goalAr: "تثقيف وبناء الثقة", goalEn: "Education and trust",
+        platformAr: "إنستغرام / فيسبوك", platformEn: "Instagram / Facebook",
+        typeAr: "ملخص أفضل النصائح", typeEn: "Best tips recap",
+        ideaAr: "اجمع أهم ثلاث نصائح من الشهر في منشور واحد.",
+        ideaEn: "Collect the month's three most useful tips in one post.",
+        titleAr: "أفضل 3 نصائح هذا الشهر", titleEn: "Our top 3 tips this month",
+        captionAr: "جمعنا لكم أهم النصائح التي ناقشناها: [النصيحة الأولى]، [الثانية]، [الثالثة]. ارجع إلى المنشورات السابقة إذا أردت التفاصيل الكاملة.",
+        captionEn: "Here are three useful tips we covered: [tip one], [tip two], and [tip three]. Check our earlier posts for the full explanations.",
+        ctaAr: "أي نصيحة كانت الأكثر فائدة لك؟", ctaEn: "Which tip helped you the most?",
+        tagsAr: "#أفضل_النصائح #ملخص_الشهر", tagsEn: "#TopTips #MonthlyRecap"
+      },
+      {
+        goalAr: "تحسين المحتوى", goalEn: "Content improvement",
+        platformAr: "إنستغرام / لينكدإن", platformEn: "Instagram / LinkedIn",
+        typeAr: "سؤال وملاحظات", typeEn: "Feedback request",
+        ideaAr: "اسأل الجمهور عن نوع المحتوى الذي يريد رؤيته أكثر.",
+        ideaEn: "Ask your audience what kind of content they'd like to see more often.",
+        titleAr: "ساعدنا على تحسين المحتوى", titleEn: "Help us improve our content",
+        captionAr: "نريد أن نقدم محتوى أكثر فائدة. هل تفضل الشروحات، أو النصائح السريعة، أو دراسات الحالة، أو الإجابة عن الأسئلة؟ رأيك يساعدنا في التخطيط.",
+        captionEn: "We want to create more useful content. Do you prefer tutorials, quick tips, case studies, or Q&As? Your feedback helps us plan.",
+        ctaAr: "اختر النوع المفضل لديك.", ctaEn: "Tell us your preferred format.",
+        tagsAr: "#رأيك_يهمنا #تحسين_المحتوى", tagsEn: "#YourFeedback #ContentIdeas"
+      },
+      {
+        goalAr: "التحويل وبناء الثقة", goalEn: "Conversion and trust",
+        platformAr: "فيسبوك / لينكدإن", platformEn: "Facebook / LinkedIn",
+        typeAr: "دعوة للاستشارة", typeEn: "Consultation invitation",
+        ideaAr: "اشرح كيف يبدأ العميل معك وما المعلومات التي يحتاج تجهيزها.",
+        ideaEn: "Explain how a customer can get started and what information to prepare.",
+        titleAr: "لنبدأ بخطوة واضحة", titleEn: "Let's start with a clear step",
+        captionAr: "لنسهّل البداية، جهّز وصفًا مختصرًا لاحتياجك والهدف الذي تريد الوصول إليه والميزانية التقريبية إن وجدت. سنناقش معك الخيارات المناسبة بوضوح.",
+        captionEn: "To make the first step easier, prepare a short description of your needs, your goal, and an approximate budget if available. We'll discuss suitable options clearly.",
+        ctaAr: "راسلنا لبدء النقاش.", ctaEn: "Message us to start the conversation.",
+        tagsAr: "#استشارة #ابدأ_الآن", tagsEn: "#Consultation #GetStarted"
+      }
+    ];
+
+    const ideaBank = [
+      ["تعليمي", "Educational", "شرح مصطلح مهم في المجال", "Explain an important industry term", "كاروسيل", "Carousel"],
+      ["تعليمي", "Educational", "خطوات تنفيذ مهمة شائعة", "Steps for a common task", "فيديو قصير", "Short video"],
+      ["تفاعل", "Engagement", "سؤال عن تحديات الجمهور", "Ask about audience challenges", "ستوري", "Story"],
+      ["تفاعل", "Engagement", "تصويت بين خيارين", "Poll between two options", "استطلاع", "Poll"],
+      ["ثقة", "Trust", "كواليس العمل", "Behind the scenes", "فيديو", "Video"],
+      ["ثقة", "Trust", "تعريف بأحد أفراد الفريق", "Introduce a team member", "صورة", "Image"],
+      ["ثقة", "Trust", "قصة تأسيس المشروع", "Tell the business origin story", "منشور نصي", "Text post"],
+      ["مبيعات", "Sales", "شرح فائدة منتج", "Explain a product benefit", "كاروسيل", "Carousel"],
+      ["مبيعات", "Sales", "الإجابة عن اعتراض شائع", "Answer a common objection", "أسئلة وأجوبة", "FAQ"],
+      ["مبيعات", "Sales", "دعوة لطلب عرض سعر", "Invite quotation requests", "منشور", "Post"],
+      ["مجتمع", "Community", "مشاركة تجربة متابع", "Share a follower experience", "قصة", "Story"],
+      ["مجتمع", "Community", "شكر العملاء", "Thank customers", "صورة", "Image"],
+      ["تعليمي", "Educational", "قائمة تحقق قابلة للحفظ", "Create a saveable checklist", "كاروسيل", "Carousel"],
+      ["تعليمي", "Educational", "خطأ شائع وطريقة تجنبه", "Common mistake and solution", "فيديو قصير", "Short video"],
+      ["تفاعل", "Engagement", "اختبار معلومات سريع", "Quick knowledge quiz", "ستوري", "Story"],
+      ["ثقة", "Trust", "عرض مراحل تنفيذ الخدمة", "Show service delivery stages", "فيديو", "Video"],
+      ["مبيعات", "Sales", "مقارنة بين خيارات مناسبة", "Compare suitable options", "كاروسيل", "Carousel"],
+      ["تعليمي", "Educational", "نصيحة من تجربة فعلية", "Practical lesson from experience", "منشور نصي", "Text post"],
+      ["مجتمع", "Community", "طلب اقتراحات الجمهور", "Ask for audience suggestions", "سؤال", "Question"],
+      ["تخطيط", "Planning", "ملخص أهم محتوى الشهر", "Monthly content recap", "كاروسيل", "Carousel"]
+    ];
+
+    function addDays(date, days) {
+      const result = new Date(date);
+      result.setDate(result.getDate() + days);
+      return result;
+    }
+
+    function formatDate(date) {
+      const year = date.getFullYear();
+      const month = String(date.getMonth() + 1).padStart(2, "0");
+      const day = String(date.getDate()).padStart(2, "0");
+      return `${year}-${month}-${day}`;
+    }
+
+    function buildCalendarWorkbook() {
+      if (typeof XLSX === "undefined") {
+        throw new Error("Excel library is not available");
+      }
+
+      const workbook = XLSX.utils.book_new();
+      const startDate = addDays(new Date(), 1);
+
+      const calendarRows = [[
+        "تاريخ النشر / Publish Date",
+        "اليوم / Day",
+        "المجال / Business Type",
+        "الهدف بالعربية / Goal AR",
+        "Goal in English",
+        "المنصة بالعربية / Platform AR",
+        "Platform in English",
+        "نوع المحتوى / Type AR",
+        "Content Type EN",
+        "فكرة المنشور / Idea AR",
+        "Post Idea EN",
+        "عنوان المنشور / Title AR",
+        "Post Title EN",
+        "الكابشن بالعربية / Caption AR",
+        "Caption in English",
+        "الدعوة لاتخاذ إجراء / CTA AR",
+        "Call to Action EN",
+        "الهاشتاجات بالعربية / Hashtags AR",
+        "Hashtags EN",
+        "الحالة / Status",
+        "رابط التصميم / Design URL",
+        "رابط المنشور / Post URL",
+        "ملاحظات / Notes"
+      ]];
+
+      calendarPosts.forEach((post, index) => {
+        const date = addDays(startDate, index);
+        const platformsAr = post.platformAr;
+        const platformsEn = post.platformEn;
+
+        calendarRows.push([
+          formatDate(date),
+          date.toLocaleDateString("en-US", { weekday: "long" }),
+          "نشاط عام / General business",
+          post.goalAr,
+          post.goalEn,
+          platformsAr,
+          platformsEn,
+          post.typeAr,
+          post.typeEn,
+          post.ideaAr,
+          post.ideaEn,
+          post.titleAr,
+          post.titleEn,
+          post.captionAr,
+          post.captionEn,
+          post.ctaAr,
+          post.ctaEn,
+          post.tagsAr,
+          post.tagsEn,
+          "مخطط / Planned",
+          "",
+          "",
+          "خصص النصوص بين الأقواس حسب نشاطك / Customize bracketed text for your business"
+        ]);
+      });
+
+      const calendarSheet = XLSX.utils.aoa_to_sheet(calendarRows);
+      calendarSheet["!cols"] = [
+        { wch: 15 }, { wch: 14 }, { wch: 25 }, { wch: 25 },
+        { wch: 25 }, { wch: 25 }, { wch: 25 }, { wch: 20 },
+        { wch: 20 }, { wch: 42 }, { wch: 42 }, { wch: 32 },
+        { wch: 32 }, { wch: 65 }, { wch: 65 }, { wch: 38 },
+        { wch: 38 }, { wch: 35 }, { wch: 35 }, { wch: 22 },
+        { wch: 30 }, { wch: 30 }, { wch: 48 }
+      ];
+      calendarSheet["!autofilter"] = {
+        ref: `A1:W${calendarRows.length}`
+      };
+      calendarSheet["!freeze"] = { xSplit: 0, ySplit: 1 };
+      XLSX.utils.book_append_sheet(workbook, calendarSheet, "تقويم 30 يوم");
+
+      const ideaRows = [[
+        "التصنيف بالعربية / Category AR",
+        "Category EN",
+        "الفكرة بالعربية / Idea AR",
+        "Idea EN",
+        "الصيغة بالعربية / Format AR",
+        "Format EN",
+        "الهدف / Goal",
+        "ملاحظات / Notes"
+      ]];
+
+      ideaBank.forEach((idea, index) => {
+        ideaRows.push([
+          idea[0], idea[1], idea[2], idea[3], idea[4], idea[5],
+          "خصصها حسب نشاطك / Adapt to your business",
+          `فكرة رقم ${index + 1} / Idea ${index + 1}`
+        ]);
+      });
+
+      const ideasSheet = XLSX.utils.aoa_to_sheet(ideaRows);
+      ideasSheet["!cols"] = [
+        { wch: 27 }, { wch: 27 }, { wch: 45 }, { wch: 45 },
+        { wch: 22 }, { wch: 22 }, { wch: 32 }, { wch: 32 }
+      ];
+      ideasSheet["!autofilter"] = {
+        ref: `A1:H${ideaRows.length}`
+      };
+      ideasSheet["!freeze"] = { xSplit: 0, ySplit: 1 };
+      XLSX.utils.book_append_sheet(workbook, ideasSheet, "بنك الأفكار");
+
+      const trackingRows = [[
+        "تاريخ النشر / Publish Date",
+        "عنوان المنشور / Post Title",
+        "المنصة / Platform",
+        "الحالة / Status",
+        "رابط التصميم / Design URL",
+        "رابط المنشور / Post URL",
+        "الوصول / Reach",
+        "مرات الظهور / Impressions",
+        "الإعجابات / Likes",
+        "التعليقات / Comments",
+        "المشاركات / Shares",
+        "النقرات / Clicks",
+        "العملاء المحتملون / Leads",
+        "المبيعات / Sales",
+        "ملاحظات / Notes"
+      ]];
+
+      for (let i = 0; i < 30; i++) {
+        trackingRows.push([
+          formatDate(addDays(startDate, i)),
+          calendarPosts[i].titleAr + " / " + calendarPosts[i].titleEn,
+          calendarPosts[i].platformAr + " / " + calendarPosts[i].platformEn,
+          "مخطط / Planned",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          ""
+        ]);
+      }
+
+      const trackingSheet = XLSX.utils.aoa_to_sheet(trackingRows);
+      trackingSheet["!cols"] = [
+        { wch: 16 }, { wch: 45 }, { wch: 34 }, { wch: 22 },
+        { wch: 30 }, { wch: 30 }, { wch: 14 }, { wch: 18 },
+        { wch: 14 }, { wch: 14 }, { wch: 14 }, { wch: 14 },
+        { wch: 20 }, { wch: 14 }, { wch: 40 }
+      ];
+      trackingSheet["!autofilter"] = {
+        ref: `A1:O${trackingRows.length}`
+      };
+      trackingSheet["!freeze"] = { xSplit: 0, ySplit: 1 };
+      XLSX.utils.book_append_sheet(workbook, trackingSheet, "متابعة الأداء");
+
+      const guideRows = [
+        ["دليل الاستخدام بالعربية / English User Guide"],
+        ["القسم / Section", "التعليمات بالعربية / Arabic Instructions", "Instructions in English"],
+        ["ابدأ هنا / Start here", "اكتب اسم نشاطك وحدد جمهورك المستهدف قبل تعديل الأفكار.", "Add your business name and define your target audience before editing ideas."],
+        ["تخصيص النص / Customize copy", "استبدل النصوص بين الأقواس مثل [اسم النشاط] بمعلوماتك الحقيقية.", "Replace bracketed text such as [Business Name] with your actual details."],
+        ["التقويم / Calendar", "التواريخ تبدأ من اليوم التالي للتنزيل. راجعها وعدّلها حسب جدول عملك.", "Dates start the day after download. Review and adjust them to your schedule."],
+        ["اختيار المنصة / Choose a platform", "اختر المنصات التي يستخدمها جمهورك فعلًا، ولا يلزم نشر كل فكرة في كل منصة.", "Choose platforms your audience actually uses. You do not need to post every idea everywhere."],
+        ["الكابشن / Captions", "راجع النصوص قبل النشر وأضف تفاصيل المنتج والأسعار والشروط الصحيحة.", "Review captions before publishing and add accurate product details, prices, and terms."],
+        ["الهاشتاجات / Hashtags", "عدّل الهاشتاجات وفق المجال والسوق والكلمات التي يستخدمها جمهورك.", "Adapt hashtags to your industry, market, and audience vocabulary."],
+        ["التصميم / Design", "ضع رابط ملف التصميم في عمود رابط التصميم لتسهيل الوصول إليه.", "Add the design file link to the Design URL column for easy access."],
+        ["حالة النشر / Status", "استخدم الحالات: مخطط، قيد التنفيذ، جاهز، منشور، مؤجل.", "Use statuses such as Planned, In progress, Ready, Published, and Postponed."],
+        ["متابعة الأداء / Performance", "سجل النتائج بعد النشر وقارن بين المنشورات لمعرفة ما يفضله جمهورك.", "Record results after publishing and compare posts to understand audience preferences."],
+        ["المقاييس / Metrics", "الوصول يعني عدد الحسابات التي وصلت إليها. مرات الظهور تعني عدد مرات العرض. قد تختلف التعريفات حسب المنصة.", "Reach counts accounts reached. Impressions count displays. Definitions may vary by platform."],
+        ["الخصوصية / Privacy", "لا تضف كلمات مرور أو بيانات مالية أو معلومات شخصية حساسة إلى الملف.", "Do not add passwords, financial credentials, or sensitive personal information."],
+        ["مهم / Important", "هذا قالب عام وليس ضمانًا لنتائج تسويقية. اختبر المحتوى وراجع البيانات الفعلية.", "This is a general template, not a guarantee of marketing results. Test content and review actual data."]
+      ];
+
+      const guideSheet = XLSX.utils.aoa_to_sheet(guideRows);
+      guideSheet["!cols"] = [
+        { wch: 28 }, { wch: 80 }, { wch: 80 }
+      ];
+      XLSX.utils.book_append_sheet(workbook, guideSheet, "دليل الاستخدام");
+
+      return workbook;
+    }
+
+    function downloadCalendarWorkbook() {
+      const workbook = buildCalendarWorkbook();
+      const filename = "FreeKit-Social-Media-Content-Calendar.xlsx";
+
+      XLSX.writeFile(workbook, filename, {
+        bookType: "xlsx",
+        compression: true
+      });
     }
 
     function renderProducts() {
@@ -655,9 +1245,25 @@
           const filename = product[6];
 
           try {
-            if (filename === "social-media-content-calendar.csv") {
-              const csv = getCalendarCSV(currentLanguage);
-              downloadTextFile(filename, csv, "text/csv;charset=utf-8;");
+            if (filename === "social-media-content-calendar.xlsx") {
+              if (typeof XLSX === "undefined") {
+                alert(currentLanguage === "ar"
+                  ? "تعذر تحميل مكتبة Excel. تأكد من اتصالك بالإنترنت ثم حدّث الصفحة وحاول مرة أخرى."
+                  : "The Excel library could not load. Check your internet connection, refresh the page, and try again.");
+                return;
+              }
+
+              button.disabled = true;
+              button.textContent = currentLanguage === "ar"
+                ? "جارٍ تجهيز الملف..."
+                : "Preparing file...";
+
+              try {
+                downloadCalendarWorkbook();
+              } finally {
+                button.disabled = false;
+                button.textContent = "↓ " + t.download;
+              }
               return;
             }
 
