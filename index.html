@@ -616,26 +616,57 @@
         button.textContent = "↓ " + t.download;
 
         button.addEventListener("click", () => {
-          if (product[6] === "social-media-content-calendar.csv") {
+          const filename = product[6];
+
+          // Generate the calendar CSV directly, so no separate CSV upload is needed.
+          if (filename === "social-media-content-calendar.csv") {
+            const rows = [
+              ["Date", "Platform", "Content Type", "Post Idea", "Caption", "Hashtags", "Status"],
+              ["2026-11-01", "Instagram", "Carousel", "Introduction post", "Introduce your brand", "#branding #content", "Planned"],
+              ["2026-11-03", "Facebook", "Image", "Share a useful tip", "Share one helpful tip", "#tips #business", "Planned"],
+              ["2026-11-05", "Instagram", "Reel", "Behind the scenes", "Show how you work", "#behindthescenes", "Planned"],
+              ["2026-11-08", "LinkedIn", "Text", "Industry insight", "Share an insight from your field", "#industry #growth", "Planned"],
+              ["2026-11-10", "Instagram", "Carousel", "Common mistakes", "Explain common mistakes", "#education #tips", "Planned"],
+              ["2026-11-12", "Facebook", "Image", "Product highlight", "Highlight a useful feature", "#product", "Planned"],
+              ["2026-11-15", "Instagram", "Story", "Ask your audience", "Ask a question to your audience", "#community", "Planned"],
+              ["2026-11-17", "LinkedIn", "Text", "Professional advice", "Share practical advice", "#professional", "Planned"],
+              ["2026-11-19", "Instagram", "Reel", "Quick tutorial", "Teach one simple skill", "#tutorial", "Planned"],
+              ["2026-11-22", "Facebook", "Image", "Customer FAQ", "Answer a common question", "#FAQ", "Planned"],
+              ["2026-11-24", "Instagram", "Carousel", "Step by step guide", "Explain a process", "#howto", "Planned"],
+              ["2026-11-26", "LinkedIn", "Text", "Lessons learned", "Share a lesson learned", "#lessons", "Planned"],
+              ["2026-11-27", "Instagram", "Story", "Poll", "Ask followers to vote", "#poll", "Planned"],
+              ["2026-11-28", "Facebook", "Image", "Weekly recap", "Recap the week's highlights", "#recap", "Planned"],
+              ["2026-11-29", "Instagram", "Carousel", "Next month preview", "Preview next month's content", "#planning", "Planned"]
+            ];
+
+            const csvContent = rows.map(row => row.map(value =>
+              '"' + String(value).replace(/"/g, '""') + '"'
+            ).join(",")).join("\r\n");
+
+            const blob = new Blob(["\uFEFF" + csvContent], {
+              type: "text/csv;charset=utf-8;"
+            });
+            const url = URL.createObjectURL(blob);
             const link = document.createElement("a");
-            link.href = "social-media-content-calendar.csv";
-            link.download = "social-media-content-calendar.csv";
+            link.href = url;
+            link.download = filename;
             document.body.appendChild(link);
             link.click();
             link.remove();
+            URL.revokeObjectURL(url);
             return;
           }
 
           const blob = new Blob(["\uFEFF" + product[7]], {
-            type: product[6].endsWith(".csv")
-              ? "text/csv;charset=utf-8"
+            type: filename.endsWith(".csv")
+              ? "text/csv;charset=utf-8;"
               : "text/plain;charset=utf-8"
           });
 
           const url = URL.createObjectURL(blob);
           const link = document.createElement("a");
           link.href = url;
-          link.download = product[6];
+          link.download = filename;
           document.body.appendChild(link);
           link.click();
           link.remove();
