@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
@@ -5,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="FreeKit - مكتبة مجانية للقوالب والملفات الرقمية للمصممين وأصحاب الأعمال ومطوري المواقع.">
   <meta name="theme-color" content="#101426">
-  <meta name="google-site-verification" content="jleky-G-I1-1-w7Dm-u6Sg9CG95e2N2VLIskyiWk9mo" />
+  <meta name="google-site-verification" content="jleky-G-I1-1-w7Dm-u6Sg9CG95e2N2VLIskyiWk9mo">
   <meta name="robots" content="index, follow">
   <meta property="og:title" content="FreeKit | Free Digital Resources">
   <meta property="og:description" content="Discover free digital templates, tools, and resources for creators and businesses.">
@@ -36,7 +37,6 @@
 
     button, input { font: inherit; }
     button { cursor: pointer; }
-
     a { color: inherit; text-decoration: none; }
 
     .container {
@@ -144,13 +144,7 @@
     }
 
     .primary-btn:hover { background: #5746df; }
-
-    .hero-note {
-      color: #c6c9dc;
-      font-size: 13px;
-      margin-top: 15px;
-    }
-
+    .hero-note { color: #c6c9dc; font-size: 13px; margin-top: 15px; }
     .section { padding: 55px 0; }
 
     .section-heading {
@@ -161,15 +155,8 @@
       margin-bottom: 25px;
     }
 
-    .section-heading h2 {
-      font-size: 29px;
-      margin: 0 0 5px;
-    }
-
-    .section-heading p {
-      color: var(--muted);
-      margin: 0;
-    }
+    .section-heading h2 { font-size: 29px; margin: 0 0 5px; }
+    .section-heading p { color: var(--muted); margin: 0; }
 
     .categories {
       display: grid;
@@ -281,6 +268,7 @@
     }
 
     .download-btn:hover { background: var(--primary); }
+    .download-btn:disabled { opacity: .6; cursor: wait; }
 
     .empty {
       grid-column: 1 / -1;
@@ -318,7 +306,6 @@
     }
 
     footer p { color: #bfc3d8; margin: 5px 0 0; font-size: 14px; }
-
     .no-results { display: none; }
 
     html[dir="ltr"] .product-body,
@@ -348,7 +335,6 @@
   <header>
     <div class="container navbar">
       <a class="logo" href="#">Free<span>Kit</span></a>
-
       <div class="nav-actions">
         <a class="menu-link" href="#products" data-i18n="browse">تصفح الملفات</a>
         <button class="language-btn" id="languageBtn" type="button">English</button>
@@ -360,25 +346,15 @@
     <section class="hero">
       <div class="container">
         <span class="eyebrow" data-i18n="eyebrow">مكتبتك الرقمية المجانية</span>
-
-        <h1 data-i18n="heroTitle">
-          أدوات وملفات تساعدك على <span>إنجاز المزيد</span>
-        </h1>
-
-        <p data-i18n="heroDescription">
-          اكتشف قوالب التصميم وملفات الأعمال وموارد المواقع، وحمّل ما تحتاجه مجانًا.
-        </p>
+        <h1 data-i18n="heroTitle">أدوات وملفات تساعدك على <span>إنجاز المزيد</span></h1>
+        <p data-i18n="heroDescription">اكتشف قوالب التصميم وملفات الأعمال وموارد المواقع، وحمّل ما تحتاجه مجانًا.</p>
 
         <form class="search-box" id="searchForm">
-          <input id="searchInput" type="search"
-            placeholder="ابحث عن قالب أو ملف..."
-            aria-label="Search resources">
+          <input id="searchInput" type="search" placeholder="ابحث عن قالب أو ملف..." aria-label="Search resources">
           <button class="primary-btn" type="submit" data-i18n="search">ابحث الآن</button>
         </form>
 
-        <div class="hero-note" data-i18n="heroNote">
-          ملفات مجانية للاستخدام • تصفح سهل • موارد متنوعة
-        </div>
+        <div class="hero-note" data-i18n="heroNote">ملفات مجانية للاستخدام • تصفح سهل • موارد متنوعة</div>
       </div>
     </section>
 
@@ -397,19 +373,16 @@
             <strong data-i18n="design">التصميم</strong>
             <small data-i18n="designSub">قوالب وموارد إبداعية</small>
           </button>
-
           <button class="category" data-category="business">
             <div class="category-icon">📊</div>
             <strong data-i18n="business">الأعمال</strong>
             <small data-i18n="businessSub">نماذج وملفات شركات</small>
           </button>
-
           <button class="category" data-category="web">
             <div class="category-icon">💻</div>
             <strong data-i18n="web">المواقع والتقنية</strong>
             <small data-i18n="webSub">موارد وقوالب ويب</small>
           </button>
-
           <button class="category" data-category="content">
             <div class="category-icon">📱</div>
             <strong data-i18n="content">صناعة المحتوى</strong>
@@ -427,7 +400,6 @@
             <p data-i18n="productsDescription">ابدأ بتحميل ملفات عملية يمكنك استخدامها مباشرة.</p>
           </div>
         </div>
-
         <div class="products" id="productGrid"></div>
       </div>
     </section>
@@ -440,13 +412,11 @@
             <h3 data-i18n="benefit1Title">مجانية</h3>
             <p data-i18n="benefit1Text">حمّل الموارد المتاحة دون دفع ثمن الملف.</p>
           </div>
-
           <div class="benefit">
             <div class="benefit-icon">⚡</div>
             <h3 data-i18n="benefit2Title">سهلة الاستخدام</h3>
             <p data-i18n="benefit2Text">ملفات منظمة تساعدك على بدء العمل بسرعة.</p>
           </div>
-
           <div class="benefit">
             <div class="benefit-icon">🌍</div>
             <h3 data-i18n="benefit3Title">لغتان</h3>
@@ -559,6 +529,72 @@
     const grid = document.getElementById("productGrid");
     const searchInput = document.getElementById("searchInput");
 
+    function csvEscape(value) {
+      return '"' + String(value ?? "").replace(/"/g, '""') + '"';
+    }
+
+    function getCalendarCSV(language) {
+      const rows = language === "ar"
+        ? [
+            ["تاريخ النشر", "المنصة", "نوع المحتوى", "فكرة المنشور", "نص مقترح", "الوسوم", "الحالة"],
+            ["2026-11-01", "إنستغرام", "كاروسيل", "منشور تعريفي", "عرّف الجمهور بعلامتك التجارية", "#العلامة_التجارية", "مخطط"],
+            ["2026-11-03", "فيسبوك", "صورة", "نصيحة مفيدة", "شارك نصيحة عملية مع جمهورك", "#نصائح", "مخطط"],
+            ["2026-11-05", "إنستغرام", "ريلز", "خلف الكواليس", "اعرض جزءًا من طريقة عملك", "#خلف_الكواليس", "مخطط"],
+            ["2026-11-08", "لينكدإن", "نصي", "معلومة من المجال", "شارك معلومة مفيدة من تخصصك", "#خبرة", "مخطط"],
+            ["2026-11-10", "إنستغرام", "كاروسيل", "أخطاء شائعة", "اشرح أخطاء يقع فيها المبتدئون", "#تعلم", "مخطط"],
+            ["2026-11-12", "فيسبوك", "صورة", "ميزة منتج", "سلط الضوء على ميزة مفيدة", "#منتج", "مخطط"],
+            ["2026-11-15", "إنستغرام", "قصة", "اسأل الجمهور", "اطرح سؤالًا وشجع المتابعين على الرد", "#تفاعل", "مخطط"],
+            ["2026-11-17", "لينكدإن", "نصي", "نصيحة مهنية", "شارك نصيحة قابلة للتطبيق", "#عمل", "مخطط"],
+            ["2026-11-19", "إنستغرام", "ريلز", "شرح سريع", "اشرح مهارة بسيطة في خطوات", "#شرح", "مخطط"],
+            ["2026-11-22", "فيسبوك", "صورة", "سؤال متكرر", "أجب عن سؤال يتكرر من العملاء", "#أسئلة", "مخطط"],
+            ["2026-11-24", "إنستغرام", "كاروسيل", "دليل خطوة بخطوة", "قدم طريقة تنفيذ واضحة", "#دليل", "مخطط"],
+            ["2026-11-26", "لينكدإن", "نصي", "درس مستفاد", "شارك درسًا تعلمته من تجربة", "#تجربة", "مخطط"],
+            ["2026-11-27", "إنستغرام", "قصة", "تصويت", "اطلب من المتابعين الاختيار بين خيارين", "#تصويت", "مخطط"],
+            ["2026-11-28", "فيسبوك", "صورة", "ملخص الأسبوع", "لخص أهم ما نُشر خلال الأسبوع", "#ملخص", "مخطط"],
+            ["2026-11-29", "إنستغرام", "كاروسيل", "خطة الشهر القادم", "اعرض لمحة عن محتوى الشهر القادم", "#تخطيط", "مخطط"]
+          ]
+        : [
+            ["Publish Date", "Platform", "Content Type", "Post Idea", "Suggested Caption", "Hashtags", "Status"],
+            ["2026-11-01", "Instagram", "Carousel", "Introduction post", "Introduce your brand", "#branding", "Planned"],
+            ["2026-11-03", "Facebook", "Image", "Share a useful tip", "Share one helpful tip with your audience", "#tips", "Planned"],
+            ["2026-11-05", "Instagram", "Reel", "Behind the scenes", "Show part of how you work", "#behindthescenes", "Planned"],
+            ["2026-11-08", "LinkedIn", "Text", "Industry insight", "Share a useful insight from your field", "#industry", "Planned"],
+            ["2026-11-10", "Instagram", "Carousel", "Common mistakes", "Explain common beginner mistakes", "#education", "Planned"],
+            ["2026-11-12", "Facebook", "Image", "Product highlight", "Highlight a useful product feature", "#product", "Planned"],
+            ["2026-11-15", "Instagram", "Story", "Ask your audience", "Ask a question and invite replies", "#community", "Planned"],
+            ["2026-11-17", "LinkedIn", "Text", "Professional advice", "Share practical professional advice", "#professional", "Planned"],
+            ["2026-11-19", "Instagram", "Reel", "Quick tutorial", "Explain one simple skill", "#tutorial", "Planned"],
+            ["2026-11-22", "Facebook", "Image", "Customer FAQ", "Answer a common customer question", "#FAQ", "Planned"],
+            ["2026-11-24", "Instagram", "Carousel", "Step-by-step guide", "Explain a process clearly", "#howto", "Planned"],
+            ["2026-11-26", "LinkedIn", "Text", "Lessons learned", "Share a lesson from experience", "#lessons", "Planned"],
+            ["2026-11-27", "Instagram", "Story", "Poll", "Ask followers to choose between two options", "#poll", "Planned"],
+            ["2026-11-28", "Facebook", "Image", "Weekly recap", "Recap the week's highlights", "#recap", "Planned"],
+            ["2026-11-29", "Instagram", "Carousel", "Next month preview", "Preview next month's content", "#planning", "Planned"]
+          ];
+
+      return "\uFEFF" + rows
+        .map(row => row.map(csvEscape).join(","))
+        .join("\r\n");
+    }
+
+    function downloadTextFile(filename, content, mimeType) {
+      const blob = new Blob([content], { type: mimeType });
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement("a");
+
+      link.href = url;
+      link.download = filename;
+      link.style.display = "none";
+      document.body.appendChild(link);
+      link.click();
+      link.remove();
+
+      // Do not revoke the object URL immediately; some browsers need time to start the download.
+      window.setTimeout(() => {
+        URL.revokeObjectURL(url);
+      }, 1500);
+    }
+
     function renderProducts() {
       const t = translations[currentLanguage];
       grid.innerHTML = "";
@@ -618,59 +654,24 @@
         button.addEventListener("click", () => {
           const filename = product[6];
 
-          // Generate the calendar CSV directly, so no separate CSV upload is needed.
-          if (filename === "social-media-content-calendar.csv") {
-            const rows = [
-              ["Date", "Platform", "Content Type", "Post Idea", "Caption", "Hashtags", "Status"],
-              ["2026-11-01", "Instagram", "Carousel", "Introduction post", "Introduce your brand", "#branding #content", "Planned"],
-              ["2026-11-03", "Facebook", "Image", "Share a useful tip", "Share one helpful tip", "#tips #business", "Planned"],
-              ["2026-11-05", "Instagram", "Reel", "Behind the scenes", "Show how you work", "#behindthescenes", "Planned"],
-              ["2026-11-08", "LinkedIn", "Text", "Industry insight", "Share an insight from your field", "#industry #growth", "Planned"],
-              ["2026-11-10", "Instagram", "Carousel", "Common mistakes", "Explain common mistakes", "#education #tips", "Planned"],
-              ["2026-11-12", "Facebook", "Image", "Product highlight", "Highlight a useful feature", "#product", "Planned"],
-              ["2026-11-15", "Instagram", "Story", "Ask your audience", "Ask a question to your audience", "#community", "Planned"],
-              ["2026-11-17", "LinkedIn", "Text", "Professional advice", "Share practical advice", "#professional", "Planned"],
-              ["2026-11-19", "Instagram", "Reel", "Quick tutorial", "Teach one simple skill", "#tutorial", "Planned"],
-              ["2026-11-22", "Facebook", "Image", "Customer FAQ", "Answer a common question", "#FAQ", "Planned"],
-              ["2026-11-24", "Instagram", "Carousel", "Step by step guide", "Explain a process", "#howto", "Planned"],
-              ["2026-11-26", "LinkedIn", "Text", "Lessons learned", "Share a lesson learned", "#lessons", "Planned"],
-              ["2026-11-27", "Instagram", "Story", "Poll", "Ask followers to vote", "#poll", "Planned"],
-              ["2026-11-28", "Facebook", "Image", "Weekly recap", "Recap the week's highlights", "#recap", "Planned"],
-              ["2026-11-29", "Instagram", "Carousel", "Next month preview", "Preview next month's content", "#planning", "Planned"]
-            ];
+          try {
+            if (filename === "social-media-content-calendar.csv") {
+              const csv = getCalendarCSV(currentLanguage);
+              downloadTextFile(filename, csv, "text/csv;charset=utf-8;");
+              return;
+            }
 
-            const csvContent = rows.map(row => row.map(value =>
-              '"' + String(value).replace(/"/g, '""') + '"'
-            ).join(",")).join("\r\n");
-
-            const blob = new Blob(["\uFEFF" + csvContent], {
-              type: "text/csv;charset=utf-8;"
-            });
-            const url = URL.createObjectURL(blob);
-            const link = document.createElement("a");
-            link.href = url;
-            link.download = filename;
-            document.body.appendChild(link);
-            link.click();
-            link.remove();
-            URL.revokeObjectURL(url);
-            return;
-          }
-
-          const blob = new Blob(["\uFEFF" + product[7]], {
-            type: filename.endsWith(".csv")
+            const mimeType = filename.toLowerCase().endsWith(".csv")
               ? "text/csv;charset=utf-8;"
-              : "text/plain;charset=utf-8"
-          });
+              : "text/plain;charset=utf-8;";
 
-          const url = URL.createObjectURL(blob);
-          const link = document.createElement("a");
-          link.href = url;
-          link.download = filename;
-          document.body.appendChild(link);
-          link.click();
-          link.remove();
-          URL.revokeObjectURL(url);
+            downloadTextFile(filename, "\uFEFF" + product[7], mimeType);
+          } catch (error) {
+            console.error("Download failed:", error);
+            alert(currentLanguage === "ar"
+              ? "تعذر تجهيز الملف. حدّث الصفحة وحاول مرة أخرى."
+              : "The file could not be prepared. Refresh the page and try again.");
+          }
         });
 
         footer.append(free, button);
